@@ -57,22 +57,18 @@ componentDidMount() {
 }
 
 afterSetStateFinished = (finalData) => {
-  //console.log(finalData)
+  console.log(finalData)
   let countryCodeGrowthData = {}
   finalData = finalData.map(entry =>
     Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
       //console.log(key);    //168 or 169
       //key = countries.getCode(key)
       //val = val['total_population'][1].population - val['total_population'][0].population
-      countryCodeGrowthData[countries.getCode(key)] = val['total_population'][1].population - val['total_population'][0].population
+      countryCodeGrowthData[countries.getCode(key)] = (val['total_population'][1].population - val['total_population'][0].population) + 1000
       //entry[key] = val
-      //console.log(entry)
     })
   )
   return countryCodeGrowthData
-  // this.setState({
-  //     countryDataArray: finalData
-  // })
 }
 
 fetchPopulationData = (country = "Lithuania") => {
@@ -115,11 +111,17 @@ fetchPopulationData = (country = "Lithuania") => {
 render() {
 
   console.log(this.state.countryDataArray)
+  //before we pass the state as props here, I need to get the lowest negative value
+  //and increase every value by that number  // did 1000 just in case
+  //so that it becomes zero and all others keep the proportion
 
   return (
     <div>
       {
-        Object.keys(this.state.countryDataArray).length > 0 ? <PopGrowthMap mapData={this.state.countryDataArray}/> : <h1>LOADING</h1>
+        Object.keys(this.state.countryDataArray).length > 0
+        ?
+        <PopGrowthMap mapData={this.state.countryDataArray}/>
+        : <h1>LOADING...</h1>
       }
     </div>
   )

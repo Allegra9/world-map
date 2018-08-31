@@ -30,9 +30,9 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 
 
 // let mapData = {
-//   AU: 1000,  //cca2 code here ? https://www.npmjs.com/package/world-countries;
-//   BR: 550,
-//   CA: 1200,
+//   AU: 5000,  //cca2 code here ? https://www.npmjs.com/package/world-countries;
+//   BR: 0,
+//   CA: 0,
 //   DE: 1300,
 //   FR: 540,
 //   GB: 690,
@@ -65,7 +65,7 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 //   HR: -10,
 //   RU: -10,
 //
-// };
+//};
 
 // console.log(mapData)
 // console.log(countriesCCa2[67])
@@ -89,9 +89,14 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 // });
 
 
-const PopGrowthMap = ({...props, mapData}) => {
+const PopGrowthMap = ({ ...props, mapData }) => {
 
-  console.log(mapData) //data
+  console.log(mapData)
+  //console.log(typeof (Object.values(mapData)[0])) //number
+
+  // scale: ["#468c53", "#db2b08"],
+  //scale: ["#5faf50", "#f94a18"],
+  // scale: ["#125b04", "#ff0000"],   dark
 
   return (
     <div>
@@ -111,6 +116,15 @@ const PopGrowthMap = ({...props, mapData}) => {
           stroke: "none",
           "stroke-width": 0,
           "stroke-opacity": 0
+        },
+        hover: {
+          "fill-opacity": 0.8,
+          cursor: 'pointer'
+        },
+        selected: {
+          fill: '#2938bc'
+        },
+        selectedHover: {
         }
       }}
       regionsSelectable={true}
@@ -119,7 +133,7 @@ const PopGrowthMap = ({...props, mapData}) => {
         regions: [
           {
             values: mapData,
-            scale: ["#43a01e", "#a4c904", "#cecece", "#fcd33f", "#c90404"],
+            scale: ["#146804", "#ff0000"],   
             normalizeFunction: "polynomial"
           }
         ]

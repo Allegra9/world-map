@@ -1,4 +1,7 @@
 import React from 'react';
+// react plugin for creating vector maps
+import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
+import PopGrowthMap from './PopGrowthMap'
 
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
@@ -11,11 +14,12 @@ const countries = require('country-list')();
 const countriesNCodes = countries.getData()  // countriesNCodes
 // console.log(countriesNCodes)   // [0].name   [0].code
 
-class Data extends React.Component {
+class PopGrowthData extends React.Component {
 
   state={
-    countryDataArray: []
+    countryDataArray: {}     // {AF: 2069, AL: 22, ...}
   }
+  //   {Canada: { total_population: [{...},{...}] } }
 
 getCountryNamesArray = () => {
   const countriesArray = []
@@ -38,8 +42,10 @@ getAllData = (countriesArray) => {
         finalData.push(countryData)
         length--     //decrease
         if (length === 0) { //only set state when fetched for all the countries
+          finalData = finalData.filter(obj => Object.keys(obj).length !== 0)
+          //return this.afterSetStateFinished(finalData)
           this.setState({
-            countryDataArray: finalData.filter(obj => Object.keys(obj).length !== 0)
+            countryDataArray: this.afterSetStateFinished(finalData)
           })
         }
     })
@@ -50,15 +56,24 @@ componentDidMount() {
   this.getAllData(this.getCountryNamesArray())
 }
 
-// afterSetStateFinished = () => {
-//   this.state.countryDataArray.map(entry =>
-//     Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
-//       console.log(key);    //168 of null   array
-//       console.log(val['total_population'][1].population -
-//       val['total_population'][0].population );
-//     })
-//   )
-// }
+afterSetStateFinished = (finalData) => {
+  //console.log(finalData)
+  let countryCodeGrowthData = {}
+  finalData = finalData.map(entry =>
+    Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
+      //console.log(key);    //168 or 169
+      //key = countries.getCode(key)
+      //val = val['total_population'][1].population - val['total_population'][0].population
+      countryCodeGrowthData[countries.getCode(key)] = val['total_population'][1].population - val['total_population'][0].population
+      //entry[key] = val
+      //console.log(entry)
+    })
+  )
+  return countryCodeGrowthData
+  // this.setState({
+  //     countryDataArray: finalData
+  // })
+}
 
 fetchPopulationData = (country = "Lithuania") => {
   return fetch('http://api.population.io:80/1.0/population/'
@@ -104,9 +119,8 @@ render() {
   return (
     <div>
       {
-
+        Object.keys(this.state.countryDataArray).length > 0 ? <PopGrowthMap mapData={this.state.countryDataArray}/> : <h1>LOADING</h1>
       }
-
     </div>
   )
 }
@@ -114,7 +128,7 @@ render() {
 
 } //class
 
-export default Data
+export default PopGrowthData
 
 
 // this.state.countryDataArray.map(entry =>

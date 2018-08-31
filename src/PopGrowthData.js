@@ -2,6 +2,7 @@ import React from 'react';
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
+import PopGrowthChart from './PopGrowthChart'
 
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
@@ -17,7 +18,8 @@ const countriesNCodes = countries.getData()  // countriesNCodes
 class PopGrowthData extends React.Component {
 
   state={
-    countryDataArray: {}     // {AF: 2069, AL: 22, ...}
+    countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
+    countryDataNames: {},
   }
   //   {Canada: { total_population: [{...},{...}] } }
 
@@ -43,9 +45,10 @@ getAllData = (countriesArray) => {
         length--     //decrease
         if (length === 0) { //only set state when fetched for all the countries
           finalData = finalData.filter(obj => Object.keys(obj).length !== 0)
-          //return this.afterSetStateFinished(finalData)
+          //return this.getCountryDataCodesObject(finalData)
           this.setState({
-            countryDataArray: this.afterSetStateFinished(finalData)
+            countryDataCodes: this.getCountryDataCodesObject(finalData),
+            countryDataNames: this.getCountryDataNamesObject(finalData)
           })
         }
     })
@@ -56,7 +59,20 @@ componentDidMount() {
   this.getAllData(this.getCountryNamesArray())
 }
 
-afterSetStateFinished = (finalData) => {
+getCountryDataNamesObject = (finalData) => {
+  //console.log(finalData)
+  let countryCodeGrowthData = {}
+  finalData = finalData.map(entry =>
+    Object.entries(entry).forEach(([key, val]) => { 
+      countryCodeGrowthData[key] = (val['total_population'][1].population
+      - val['total_population'][0].population)
+      //entry[key] = val
+    })
+  )
+  return countryCodeGrowthData
+}
+
+getCountryDataCodesObject = (finalData) => {
   console.log(finalData)
   let countryCodeGrowthData = {}
   finalData = finalData.map(entry =>
@@ -64,7 +80,8 @@ afterSetStateFinished = (finalData) => {
       //console.log(key);    //168 or 169
       //key = countries.getCode(key)
       //val = val['total_population'][1].population - val['total_population'][0].population
-      countryCodeGrowthData[countries.getCode(key)] = (val['total_population'][1].population - val['total_population'][0].population) + 1000
+      countryCodeGrowthData[countries.getCode(key)] = (val['total_population'][1].population
+      - val['total_population'][0].population) + 1000    //so no negative values for the map
       //entry[key] = val
     })
   )
@@ -110,7 +127,7 @@ fetchPopulationData = (country = "Lithuania") => {
 
 render() {
 
-  console.log(this.state.countryDataArray)
+  console.log(this.state.countryDataCodes)
   //before we pass the state as props here, I need to get the lowest negative value
   //and increase every value by that number  // did 1000 just in case
   //so that it becomes zero and all others keep the proportion
@@ -118,9 +135,12 @@ render() {
   return (
     <div>
       {
-        Object.keys(this.state.countryDataArray).length > 0
+        Object.keys(this.state.countryDataCodes).length > 0
         ?
-        <PopGrowthMap mapData={this.state.countryDataArray}/>
+        <div>
+          <PopGrowthMap mapData={this.state.countryDataCodes}/>
+          <PopGrowthChart data={this.state.countryDataNames}/>
+        </div>
         : <h1>LOADING...</h1>
       }
     </div>
@@ -133,7 +153,7 @@ render() {
 export default PopGrowthData
 
 
-// this.state.countryDataArray.map(entry =>
+// this.state.countryDataCodes.map(entry =>
 //   Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
 //     console.log(key);    //168 of null   array
 //     console.log(val['total_population'][1].population -

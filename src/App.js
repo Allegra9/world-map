@@ -73,22 +73,9 @@ let mapData = {
 // console.log(countriesNames[42])
 // console.log(countriesFlags[42])
 
-//  "flag": "\ud83c\udde6\ud83c\uddf9"
-
-// \u{5c}\u{75}\u{64}\u{38}\u{33}\u{63}\u{5c}\u{75}\u{64}\u{64}\u{65}\u{36}\u{5c}\u{75}\u{64}\u{38}\u{33}\u{63}\u{5c}\u{75}\u{64}\u{64}\u{66}\u{39}
-
-// String.fromCodePoint(`0x${e.unified}`)
-// String.fromCodePoint(0x1f43c) //works === panda  //Unicode - hex code point
-// String.fromCodePoint(\ud83c\udde6\ud83c\uddf9)
-
 // let obj = {
 //     [countriesCCa2[7]]: 1000  // UAE
 // }
-
-// Object.entries(myObj).forEach(([key, val]) => {
-//     console.log(key);          // the name of the current key.
-//     console.log(val);          // the value of the current key.
-// });
 
 //ES6:
 // Object.keys(myObj).forEach(key => {

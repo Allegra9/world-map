@@ -11,24 +11,6 @@ const countries = require('country-list')();
 const countriesNCodes = countries.getData()  // countriesNCodes
 // console.log(countriesNCodes)   // [0].name   [0].code
 
-// pseudocode:
-// getCountryNames = () => {
-//   //get country names
-//   // returns an array of country names
-// };
-//
-// getCountryData = (country_name) => {
-//   // get country population data
-// }
-//
-// getAllData = (arr_of_countries) => {
-//   data = {}
-//   arr_of_countries.map( country => {
-//     data[country] = getCountryData(country);
-//   })
-// }
-
-
 class Data extends React.Component {
 
   state={
@@ -39,9 +21,8 @@ getCountryNamesArray = () => {
   const countriesArray = []
   for (let country of countriesNCodes) {
     countriesArray.push(country.name)
-    //console.log(country.name)
   }
-  return countriesArray  //got all countries
+  return countriesArray
 }
 
 getCountryData = (name) => {
@@ -49,35 +30,38 @@ getCountryData = (name) => {
 }
 
 getAllData = (countriesArray) => {
-  //let data = {}
-  countriesArray.map(country => {
-    return this.getCountryData(country) //  data[country] = this.getCountryData(country)
+  let length = countriesArray.length  //how many countries to fetch for
+  let finalData = []
+  countriesArray.forEach((country) => {
+    this.getCountryData(country)   //fetch
+    .then((countryData) => {
+        finalData.push(countryData)
+        length--     //decrease
+        if (length === 0) { //only set state when fetched for all the countries
+          this.setState({
+            countryDataArray: finalData.filter(obj => Object.keys(obj).length !== 0)
+          })
+        }
+    })
   })
-  // .map(country => {
-  //   if (data[country] === 'no-country-data') {
-  //     delete data[country];
-  //   }
-  // })
 }
 
-// getPopGrowth = () => {
-//   for (let country of countriesNCodes) {
-//     console.log(country.name)
-//     // this.set.state({
-//     //   coutryWithData: {country.name: this.fetchPopulationData(country.name)}
-//     // })
-//     this.fetchPopulationData(country.name)
-//   }
-// }
-
 componentDidMount() {
-  // console.log("Mounted")
   this.getAllData(this.getCountryNamesArray())
 }
 
-//fetching data for each country:
+// afterSetStateFinished = () => {
+//   this.state.countryDataArray.map(entry =>
+//     Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
+//       console.log(key);    //168 of null   array
+//       console.log(val['total_population'][1].population -
+//       val['total_population'][0].population );
+//     })
+//   )
+// }
+
 fetchPopulationData = (country = "Lithuania") => {
-  fetch('http://api.population.io:80/1.0/population/'
+  return fetch('http://api.population.io:80/1.0/population/'
   + `${country}/today-and-tomorrow/`)
     .then(res => {
       if (res.ok) {   // res.status code
@@ -90,37 +74,23 @@ fetchPopulationData = (country = "Lithuania") => {
       let countryData = {}
       if (data !== 'no-country-data') {
         countryData[country] = data
-        this.setState({
-          // countryDataArray: {...this.state.countryDataArray, country: data}
-          countryDataArray: [...this.state.countryDataArray, countryData]
-        }, console.log(this.state.countryDataArray) )
-      } //if
+      }
+      return countryData
     }
-    //   this.setState({
-    //     populationGrowth: [...this.state.populationGrowth, data["total_population"][1].population - data["total_population"][0].population]
-    // })
-  )
-  .catch((error) => {
+  ).catch((error) => {
     //console.log(error)
   });
 }
+
+//   this.setState({
+//     populationGrowth: [...this.state.populationGrowth, data["total_population"][1].population - data["total_population"][0].population]
+// })
 
 // Object.keys(countryData), countryData[country]['total_population'][1].population -
 //    countryData[country]['total_population'][0].population
 
 // console.log(Object.keys(object1));  //to get the keys
-
-// if (countryData[country] === 'no-country-data') {
-//   delete countryData[country];    //filter here the state
-// }
-
-// [{cat: "catV"}, {dog: "dogV"}].map(entry => {
-//   Object.entries(entry).forEach(([key, val]) => {  //return value undefined
-//     // console.log(Object.entries(entry).length)
-//     console.log(key);
-//     console.log(val);
-//   })
-// })
+// Object.keys(obj).length !== 0  //if not empty
 
 // Object.keys(myObj).forEach(key => {
 //     console.log(key);          // the name of the current key.
@@ -129,27 +99,12 @@ fetchPopulationData = (country = "Lithuania") => {
 
 render() {
 
-  // let filteredCountryDataArray = this.state.countryDataArray.map(entry => {
-  //   console.log(entry)
-  // })
-
-  // Object.entries(myObj).forEach(([key, val]) => {
-  //     console.log(key);          // the name of the current key.
-  //     console.log(val);          // the value of the current key.
-  // });
+  console.log(this.state.countryDataArray)
 
   return (
     <div>
       {
-        this.state.countryDataArray.map(entry => {
-          Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
-            return (
-              <div>{key}</div>
-              )
-            // console.log(key);    //168 of null   array
-            // console.log(val);
-          })
-        })
+
       }
 
     </div>
@@ -157,6 +112,34 @@ render() {
 }
 
 
-}
+} //class
 
 export default Data
+
+
+// this.state.countryDataArray.map(entry =>
+//   Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
+//     console.log(key);    //168 of null   array
+//     console.log(val['total_population'][1].population -
+//     val['total_population'][0].population );
+//   })
+// )
+
+
+// let response = await fetch('http://api.population.io:80/1.0/population/'
+// + `${country}/today-and-tomorrow/`)
+// // console.log("RESPONSE", response)
+// let data;
+// if (response.ok) {
+//   data = await response.json()
+// } else {
+//   data ='no-country-data'
+// }
+// // console.log("DATA", data)
+// let countryData = {}
+// if (data !== 'no-country-data') {
+//   countryData[country] = data
+// }
+// console.log("COUNTRY DATA", countryData)
+//
+// return countryData

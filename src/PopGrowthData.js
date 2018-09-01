@@ -3,6 +3,7 @@ import React from 'react';
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
 import PopGrowthChart from './PopGrowthChart'
+import PopGrowthStats from './PopGrowthStats'
 
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
@@ -19,10 +20,11 @@ class PopGrowthData extends React.Component {
 
   state={
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
-    countryDataNames: {},
+    countryDataNames: {},     // {Algeria: 1790, ...}
   }
   //   {Canada: { total_population: [{...},{...}] } }
 
+//get all countries:
 getCountryNamesArray = () => {
   const countriesArray = []
   for (let country of countriesNCodes) {
@@ -31,10 +33,12 @@ getCountryNamesArray = () => {
   return countriesArray
 }
 
+//fetch for each country:
 getCountryData = (name) => {
   return this.fetchPopulationData(name)
 }
 
+//get data for each country and set the state:
 getAllData = (countriesArray) => {
   let length = countriesArray.length  //how many countries to fetch for
   let finalData = []
@@ -44,7 +48,7 @@ getAllData = (countriesArray) => {
         finalData.push(countryData)
         length--     //decrease
         if (length === 0) { //only set state when fetched for all the countries
-          finalData = finalData.filter(obj => Object.keys(obj).length !== 0)
+          finalData = finalData.filter(obj => Object.keys(obj).length !== 0) //get rid of empty objs
           //return this.getCountryDataCodesObject(finalData)
           this.setState({
             countryDataCodes: this.getCountryDataCodesObject(finalData),
@@ -59,19 +63,7 @@ componentDidMount() {
   this.getAllData(this.getCountryNamesArray())
 }
 
-getCountryDataNamesObject = (finalData) => {
-  //console.log(finalData)
-  let countryCodeGrowthData = {}
-  finalData = finalData.map(entry =>
-    Object.entries(entry).forEach(([key, val]) => { 
-      countryCodeGrowthData[key] = (val['total_population'][1].population
-      - val['total_population'][0].population)
-      //entry[key] = val
-    })
-  )
-  return countryCodeGrowthData
-}
-
+//reformating the data for the state, to be passed as props:  code: data
 getCountryDataCodesObject = (finalData) => {
   console.log(finalData)
   let countryCodeGrowthData = {}
@@ -82,6 +74,20 @@ getCountryDataCodesObject = (finalData) => {
       //val = val['total_population'][1].population - val['total_population'][0].population
       countryCodeGrowthData[countries.getCode(key)] = (val['total_population'][1].population
       - val['total_population'][0].population) + 1000    //so no negative values for the map
+      //entry[key] = val
+    })
+  )
+  return countryCodeGrowthData
+}
+
+//reformating the data for the state, to be passed as props:   countryName: data
+getCountryDataNamesObject = (finalData) => {
+  //console.log(finalData)
+  let countryCodeGrowthData = {}
+  finalData = finalData.map(entry =>
+    Object.entries(entry).forEach(([key, val]) => {
+      countryCodeGrowthData[key] = (val['total_population'][1].population
+      - val['total_population'][0].population)
       //entry[key] = val
     })
   )
@@ -139,7 +145,7 @@ render() {
         ?
         <div>
           <PopGrowthMap mapData={this.state.countryDataCodes}/>
-          <PopGrowthChart data={this.state.countryDataNames}/>
+          <PopGrowthStats growthDaily={this.state.countryDataNames}/>
         </div>
         : <h1>LOADING...</h1>
       }
@@ -153,6 +159,9 @@ render() {
 export default PopGrowthData
 
 
+//   <PopGrowthChart data={this.state.countryDataNames}/>
+
+
 // this.state.countryDataCodes.map(entry =>
 //   Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
 //     console.log(key);    //168 of null   array
@@ -160,22 +169,3 @@ export default PopGrowthData
 //     val['total_population'][0].population );
 //   })
 // )
-
-
-// let response = await fetch('http://api.population.io:80/1.0/population/'
-// + `${country}/today-and-tomorrow/`)
-// // console.log("RESPONSE", response)
-// let data;
-// if (response.ok) {
-//   data = await response.json()
-// } else {
-//   data ='no-country-data'
-// }
-// // console.log("DATA", data)
-// let countryData = {}
-// if (data !== 'no-country-data') {
-//   countryData[country] = data
-// }
-// console.log("COUNTRY DATA", countryData)
-//
-// return countryData

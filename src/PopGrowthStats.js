@@ -3,11 +3,12 @@ import React from 'react';
 class PopGrowthStats extends React.Component {
 
   state={
-    countries: {},  //set state !!!
-    daily: {},
-    weekly: {},
-    yearly: {},
-    in10yrs: {},
+    countries: [],
+    daily: [],
+    weekly: [],
+    yearly: [],
+    in10yrs: [],
+    reducedDaily: null,
   }
 
   getState = () => {
@@ -19,29 +20,29 @@ class PopGrowthStats extends React.Component {
       weekly: this.getWeekly(),
       yearly: this.getYearly(),
       in10yrs: this.get10Years(),
+      reducedDaily: this.reducedDaily(),
     })
   }
 
-  sortedCountries = () => {   // make this work !!!
+  reducedDaily = () => {
+    let daily = this.sortedProps()
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    return daily.reduce(reducer)
+  }
+
+  sortedCountries = () => {
     let obj = {...this.props.growthDaily}
     let objValuesSortedArray = Object.values(obj).sort((a,b) => b-a )
     console.log(objValuesSortedArray )   // typeof: object,  but it's an array with number values !!!
     //  obj is    [42559, 13967, 13621, 10710, ...]
     //for each of this value I need to get the key country
-    //objValuesSortedArray.forEach(value => console.log("value", value))
-    //console.log(obj)
     let sortedCountriesArray = []
     objValuesSortedArray.forEach(value => {
-      //if (sortedCountriesArray.indexOf(this.getKeyByValue(obj, value)) === -1) {
         sortedCountriesArray.push(this.getKeyByValue(obj, value)  )
-        //this.getKeyByValue(obj, value)
-      // } else {
-      //   console.log( this.getKeyByValue(obj, value) )
-      // }
     })
     // Kuwait, Botswana, Djibouti, Albania, Luxembourg, Maldives, Fiji, Guyana,
     // Georgia, French Polynesia, Guadeloupe, Samoa, Antigua and Barbuda,
-    // Aruba, Martinique, Croatia     // 169 ans 147    22  wrong
+    // Aruba, Martinique, Croatia     // 169 ans 147    22  wrong/duplicates
     console.log(sortedCountriesArray.length)   // 169
     //console.log(sortedCountriesArray)  // array of arrays
 
@@ -52,23 +53,23 @@ class PopGrowthStats extends React.Component {
     return this.getUniqArray(flattened)
   }
 
-  flattenArray = (array) => {
-    return array.reduce((acc, val) => acc.concat(val), [])
-  }
-
-  getUniqArray = (array) => {
-    return array.filter((elem, pos, arr) => {
-      return arr.indexOf(elem) == pos;
-    });
-  }
-
   getKeyByValue = (object, value) => {
     //find will give multiple and too little, filter all but bit too many
     //hence I need to flatten and get unique values after
     return Object.keys(object).filter(key => object[key] === value)
   }
 
-  sortedProps = () => {   //sorts the prop values in desending order
+  flattenArray = (array) => {
+    return array.reduce((acc, val) => acc.concat(val), [])
+  }
+
+  getUniqArray = (array) => {
+    return array.filter((elem, pos, arr) => {
+      return arr.indexOf(elem) === pos;
+    });
+  }
+
+  sortedProps = () => {   //sorts the prop values in descending order
     let obj = {...this.props.growthDaily}
     let sortedObj = {}
     sortedObj = Object.values(obj).sort((a,b) => b-a )
@@ -104,7 +105,6 @@ class PopGrowthStats extends React.Component {
     this.getState()
   }
 
-
   render() {
 
     //const countries = Object.keys(this.props.growthDaily)
@@ -115,14 +115,15 @@ class PopGrowthStats extends React.Component {
     const yearly = Object.values(this.state.yearly)
     const in10yrs = Object.values(this.state.in10yrs)
 
-    console.log(countries)
-
     console.log(this.props.growthDaily)
-    console.log(this.state.countries)   //empty
+    console.log(this.state.countries)
     console.log(this.state.daily)
     console.log(this.state.weekly)
     console.log(this.state.yearly)
     console.log(this.state.in10yrs)
+
+    console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
+    // x every day, x/24 hour, x/24/60 minute, x/24/60/60 second 
 
     const styles = {       // style={styles.container}
       gridContainer: {

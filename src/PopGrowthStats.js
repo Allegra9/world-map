@@ -1,5 +1,4 @@
 import React from 'react';
-import PopGrowthChart from './PopGrowthChart'
 import worldCountries from 'world-countries' //npm i world-countries
 
 class PopGrowthStats extends React.Component {
@@ -11,7 +10,7 @@ class PopGrowthStats extends React.Component {
     yearly: [],
     in10yrs: [],
     reducedDaily: null,
-    selectedCountry: '',
+    //selectedCountry: '',
   }
 
   getState = () => {
@@ -131,12 +130,12 @@ class PopGrowthStats extends React.Component {
     this.getState()
   }
 
-  handleClick = (e) => {
-    console.log(e.target.id)
-    this.setState({
-      selectedCountry: e.target.id
-    })
-  }
+  // handleClick = (e) => {
+  //   console.log(e.target.id)
+  //   this.setState({
+  //     selectedCountry: e.target.id
+  //   })
+  // }
 
   render() {
 
@@ -234,9 +233,10 @@ class PopGrowthStats extends React.Component {
               // console.log(countriesFlags)
 
               countries.map(country =>
-                <li style={styles.liCountry} onClick={this.handleClick} id={country}>
+                <li style={styles.liCountry}  id={country}>
                    {this.getAFlag(country)} {country}
                 </li>)
+                // onClick={this.handleClick}   if I wanted to get a country onClick
                 // {this.getAFlag(country)}
             }
           </ul>
@@ -282,9 +282,7 @@ class PopGrowthStats extends React.Component {
           </ul>
         </span>
       </div>
-
-      <PopGrowthChart selectedCountry={this.state.selectedCountry}/>
-
+      
     </div>
     )
 
@@ -292,6 +290,8 @@ class PopGrowthStats extends React.Component {
 }
 
 export default PopGrowthStats
+
+    //  <PopGrowthChart selectedCountry={this.state.selectedCountry}/>
 
   // makeDataXnYfromProps = () => {
   //   let data = []

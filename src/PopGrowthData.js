@@ -3,6 +3,7 @@ import React from 'react';
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
 import PopGrowthStats from './PopGrowthStats'
+import PopGrowthChart from './PopGrowthChart'
 
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
@@ -20,6 +21,7 @@ class PopGrowthData extends React.Component {
   state={
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
     countryDataNames: {},     // {Algeria: 1790, ...}
+    buttonClicked: true,
   }
   //   {Canada: { total_population: [{...},{...}] } }
 
@@ -130,6 +132,13 @@ fetchPopulationData = (country = "Lithuania") => {
 //     console.log(myObj[key]);   // the value of the current key.
 // });
 
+  handleBtnClick = () => {
+    this.setState({
+      buttonClicked: !this.state.buttonClicked
+    })
+    console.log(this.state.buttonClicked)
+  }
+
 render() {
 
   console.log(this.state.countryDataCodes)
@@ -137,11 +146,12 @@ render() {
   //and increase every value by that number  // did 1000 just in case
   //so that it becomes zero and all others keep the proportion
 
-  // const styles = {       // style={styles.container}
-  //   div: {
-  //     backgroundColor: '#000',
-  //   },
-  // }
+  const styles = {       // style={styles.container}
+    div: {
+      //backgroundColor: '#000',
+      marginTop: '100px',
+    },
+  }
 
   return (
     <div>
@@ -150,7 +160,19 @@ render() {
         ?
         <div>
           <PopGrowthMap mapData={this.state.countryDataCodes}/>
-          <PopGrowthStats growthDaily={this.state.countryDataNames}/>
+
+          {
+            this.state.buttonClicked ?
+            <div style={styles.div}>
+              <button onClick={this.handleBtnClick}>Go back to stats</button>
+              <PopGrowthChart />
+            </div>
+            :
+            <div>
+              <button onClick={this.handleBtnClick}>See charts for an individual country</button>
+              <PopGrowthStats growthDaily={this.state.countryDataNames}/>
+            </div>
+          }
         </div>
         : <h1>LOADING...</h1>
       }

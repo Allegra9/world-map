@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { VictoryChart, VictoryScatter, VictoryLine } from 'victory';
 // npm i victory --save
 
-//this.props.selectedCountry
-
 const data = [
   { x: 1960, y: 0 },
   { x: 1970, y: 2000 },
@@ -53,14 +51,28 @@ class PopGrowthChart extends Component {
 
   // `http://api.population.io:80/1.0/population/1980/Brazil/`
 
-  fetchDecadesData = (year="1960", country="Lithuania") => {
+  fetchDecadesData = (year="2018", country="Lithuania") => {
     return fetch('http://api.population.io:80/1.0/population/'
     + `${year}/${country}/`)
     .then(res => res.json())
-    .then(res => res.map(entry => console.log(entry.total)) )
+    .then(res => this.getTotal(res))
   }
 
+  getTotal = (array) => {
+    console.log(array)
+    let totalPop = []
+    array.map(entry => totalPop.push(entry.total))
+    //console.log(totalPop)
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    console.log(totalPop.reduce(reducer))  //gets the total pop for the given year for the given country
+    return totalPop.reduce(reducer)
+  }
 
+  // reducedDaily = () => {
+  //   let daily = this.sortedProps()
+  //   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  //   return daily.reduce(reducer)
+  // }
 
 
   // makeDataXnYfromProps = () => {
@@ -94,7 +106,9 @@ class PopGrowthChart extends Component {
       },
     }
 
-    console.log(this.props.data)   // {Algeria: 1790, ...}
+    //console.log(this.props.data)   // {Algeria: 1790, ...}
+
+    //this.props.selectedCountry
 
     return (
       <div style={styles.chart}>

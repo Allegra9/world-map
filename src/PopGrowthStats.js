@@ -1,4 +1,6 @@
 import React from 'react';
+import PopGrowthChart from './PopGrowthChart'
+import worldCountries from 'world-countries' //npm i world-countries
 
 class PopGrowthStats extends React.Component {
 
@@ -9,6 +11,7 @@ class PopGrowthStats extends React.Component {
     yearly: [],
     in10yrs: [],
     reducedDaily: null,
+    selectedCountry: '',
   }
 
   getState = () => {
@@ -101,8 +104,38 @@ class PopGrowthStats extends React.Component {
     return obj
   }
 
+  getAFlag = (countryToFind) => {
+    if (countryToFind === "Congo") {
+      let countriesNames = worldCountries.find(country => country.name.common === "DR Congo")
+      return countriesNames.flag
+    }else if (countryToFind === "Czech Republic"){
+      let countriesNames = worldCountries.find(country => country.name.common === "Czechia")
+      return countriesNames.flag
+    }else if (countryToFind === "Brunei Darussalam"){
+      let countriesNames = worldCountries.find(country => country.name.common === "Brunei")
+      return countriesNames.flag
+    }else if (countryToFind === "Sao Tome and Principe"){
+      let countriesNames = worldCountries.find(country => country.name.common === "São Tomé and Príncipe")
+      return countriesNames.flag
+    }else if (countryToFind === "Russian Federation"){
+      let countriesNames = worldCountries.find(country => country.name.common === "Russia")
+      return countriesNames.flag
+    }else {
+      let countriesNames = worldCountries.find(country => country.name.common === countryToFind)
+      //console.log(countriesNames.flag)
+      return countriesNames.flag
+    }
+  }
+
   componentDidMount() {
     this.getState()
+  }
+
+  handleClick = (e) => {
+    console.log(e.target.id)
+    this.setState({
+      selectedCountry: e.target.id
+    })
   }
 
   render() {
@@ -160,6 +193,10 @@ class PopGrowthStats extends React.Component {
       },
       li: {
         borderBottom: '1px #000 solid',
+        padding: '4px',
+      },
+      liCountry: {
+        borderBottom: '1px #000 solid',
       },
       div: {
         border: '1px #000 solid',
@@ -184,9 +221,8 @@ class PopGrowthStats extends React.Component {
         <div style={styles.div}>
           Our current world's population growth is
           <span style={styles.span}>{this.state.reducedDaily}</span> people per day,
-          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24)}</span> per hour,
-          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24 / 60)}</span> per minute,
-          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24 / 60 /60)}</span> per sec.
+          <span style={styles.span}>{Math.floor(this.state.reducedDaily * 7)}</span> per week,
+          <span style={styles.span}>{Math.floor(this.state.reducedDaily * 360)}</span> per year.
         </div>
 
       <div style={styles.gridContainer}>
@@ -194,8 +230,14 @@ class PopGrowthStats extends React.Component {
           <ul style={styles.ul}>
             <li><h3>Country</h3></li>
             {
+              // let countriesFlags = worldCountries.map(country => country.flag)
+              // console.log(countriesFlags)
+
               countries.map(country =>
-                <li style={styles.li}>{country}</li>)
+                <li style={styles.liCountry} onClick={this.handleClick} id={country}>
+                   {this.getAFlag(country)} {country}
+                </li>)
+                // {this.getAFlag(country)}
             }
           </ul>
         </span>
@@ -240,6 +282,8 @@ class PopGrowthStats extends React.Component {
           </ul>
         </span>
       </div>
+
+      <PopGrowthChart selectedCountry={this.state.selectedCountry}/>
 
     </div>
     )

@@ -123,7 +123,7 @@ class PopGrowthStats extends React.Component {
     console.log(this.state.in10yrs)
 
     console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
-    // x every day, x/24 hour, x/24/60 minute, x/24/60/60 second 
+    // x every day, x/24 hour, x/24/60 minute, x/24/60/60 second
 
     const styles = {       // style={styles.container}
       gridContainer: {
@@ -161,9 +161,34 @@ class PopGrowthStats extends React.Component {
       li: {
         borderBottom: '1px #000 solid',
       },
+      div: {
+        border: '1px #000 solid',
+        padding: '15px',
+        width: "70%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: '50px',
+      },
+      span: {
+        border: '1px #000 solid',
+        padding: '15px',
+        marginLeft: '8px',
+        fontWeight: '900',
+        backgroundColor: 'red',
+
+      }
     }
 
     return (
+      <div>
+        <div style={styles.div}>
+          Our current world's population growth is
+          <span style={styles.span}>{this.state.reducedDaily}</span> people per day,
+          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24)}</span> per hour,
+          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24 / 60)}</span> per minute,
+          <span style={styles.span}>{Math.floor(this.state.reducedDaily / 24 / 60 /60)}</span> per sec.
+        </div>
+
       <div style={styles.gridContainer}>
         <span style={styles.countryColumn}>
           <ul style={styles.ul}>
@@ -215,6 +240,8 @@ class PopGrowthStats extends React.Component {
           </ul>
         </span>
       </div>
+
+    </div>
     )
 
   }

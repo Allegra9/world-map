@@ -138,6 +138,12 @@ render() {
   //and increase every value by that number  // did 1000 just in case
   //so that it becomes zero and all others keep the proportion
 
+  // const styles = {       // style={styles.container}
+  //   div: {
+  //     backgroundColor: '#000',
+  //   },
+  // }
+
   return (
     <div>
       {

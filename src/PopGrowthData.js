@@ -2,7 +2,6 @@ import React from 'react';
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
-import PopGrowthChart from './PopGrowthChart'
 import PopGrowthStats from './PopGrowthStats'
 
 //not using this here yet:

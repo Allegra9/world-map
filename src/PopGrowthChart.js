@@ -35,9 +35,9 @@ const data3 = [
   {x: 2020, y: 28172}
 ];
 
-const totalPopChartData = []
-const totalMalesChartData = []
-const totalFemalesChartData = []
+let totalPopChartData = []
+let totalMalesChartData = []
+let totalFemalesChartData = []
 
 class PopGrowthChart extends Component {
 
@@ -90,16 +90,24 @@ class PopGrowthChart extends Component {
     totalFemalesChartData.push(yearPlusTotalFemales)
 
     //console.log(totalPopChartData)
-    //console.log(this.sortedPopChartData(totalPopChartData)  )
+    console.log(this.sortPopChartData(totalPopChartData)  )
+    console.log(this.sortPopChartData(totalMalesChartData)  )
+    console.log(this.sortPopChartData(totalFemalesChartData)  )
 
 
     if (totalPopChartData.length === 7 && totalMalesChartData.length === 7 && totalFemalesChartData.length === 7){
       this.setState({
-        totalPopChartData: this.makeDataForCharts(this.sortedPopChartData(totalPopChartData)),
-        totalMalesChartData: this.makeDataForCharts(this.sortedPopChartData(totalMalesChartData)),
-        totalFemalesChartData: this.makeDataForCharts(this.sortedPopChartData(totalFemalesChartData)),
-      }, () => console.log(this.state))   // callback !!!!
+        totalPopChartData: this.makeDataForCharts(this.sortPopChartData(totalPopChartData)),
+        totalMalesChartData: this.makeDataForCharts(this.sortPopChartData(totalMalesChartData)),
+        totalFemalesChartData: this.makeDataForCharts(this.sortPopChartData(totalFemalesChartData)),
+      }, () => this.emptyGlobalVariables() )   // callback !!!!
     }
+  }
+
+  emptyGlobalVariables = () => {
+    totalPopChartData = []
+    totalMalesChartData = []
+    totalFemalesChartData = []
   }
 
   makeDataForCharts = (array) => {
@@ -116,11 +124,11 @@ class PopGrowthChart extends Component {
   // [{1990: 23456434}, {1960: 23456434}, ...]
 
   //SORTS AN ARRAY OF OBJS BY KEY:
-  sortedPopChartData = (array) => {
+  sortPopChartData = (array) => {
     let stringified = array.map((element) => {
       return JSON.stringify(element)
     })
-    console.log(stringified)
+    //console.log(stringified)
     stringified.sort()
     return stringified.map((stringifiedElement) => {
       return JSON.parse(stringifiedElement)
@@ -164,7 +172,7 @@ class PopGrowthChart extends Component {
             grid
             verticalGrid
             interpolate={'cardinal'}
-            lineColors={['red', 'blue', 'green']}
+            lineColors={['red']}
             width={700}
             height={350}
             data={[this.state.totalPopChartData]}
@@ -176,7 +184,7 @@ class PopGrowthChart extends Component {
             grid
             verticalGrid
             interpolate={'cardinal'}
-            lineColors={['red', 'blue', 'green']}
+            lineColors={['blue', 'red']}
             width={700}
             height={350}
             data={[this.state.totalMalesChartData, this.state.totalFemalesChartData]}

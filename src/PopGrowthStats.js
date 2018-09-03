@@ -236,7 +236,7 @@ class PopGrowthStats extends React.Component {
 
               countries.map(country =>
                 <li style={styles.liCountry}  id={country} onClick={this.handleClick}>
-                   {this.getAFlag(country)} {country}
+                   {this.getAFlag(country)} {country} 
                 </li>)
                 // onClick={this.handleClick}   if I wanted to get a country onClick
                 // {this.getAFlag(country)}

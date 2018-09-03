@@ -90,10 +90,9 @@ class PopGrowthChart extends Component {
     totalFemalesChartData.push(yearPlusTotalFemales)
 
     //console.log(totalPopChartData)
-    console.log(this.sortPopChartData(totalPopChartData)  )
-    console.log(this.sortPopChartData(totalMalesChartData)  )
-    console.log(this.sortPopChartData(totalFemalesChartData)  )
-
+    // console.log(this.sortPopChartData(totalPopChartData))
+    // console.log(this.sortPopChartData(totalMalesChartData))
+    // console.log(this.sortPopChartData(totalFemalesChartData))
 
     if (totalPopChartData.length === 7 && totalMalesChartData.length === 7 && totalFemalesChartData.length === 7){
       this.setState({
@@ -169,6 +168,8 @@ class PopGrowthChart extends Component {
           Population growth (millions)
           <LineChart
             axes
+            xTicks={5}
+            yTicks={10}
             grid
             verticalGrid
             interpolate={'cardinal'}
@@ -181,6 +182,8 @@ class PopGrowthChart extends Component {
         Females and males (millions)
           <LineChart
             axes
+            xTicks={5}
+            yTicks={10}
             grid
             verticalGrid
             interpolate={'cardinal'}

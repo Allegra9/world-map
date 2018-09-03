@@ -45,11 +45,11 @@ class PopGrowthChart extends Component {
       interpolation: "linear",
       polar: false,
       //data: [],      //  [ {x: "Afghanistan", y: 2069}, {x: ..., y: ...} ]
-      selectedCountry: "Lithuania",
+      //selectedCountry: "Germany",
       totalPopChartData: [],
       totalMalesChartData: [],
       totalFemalesChartData: [],
-      data: [],     // data={ [data, data2, data3] }   // each data is an array
+      //data: [],     // data={ [data, data2, data3] }   // each data is an array
   }
 
   // `http://api.population.io:80/1.0/population/1980/Brazil/`
@@ -85,51 +85,46 @@ class PopGrowthChart extends Component {
     yearPlusTotalMales[year] = totalMales.reduce(reducer)    // {2018: 1295220}
     yearPlusTotalFemales[year] = totalFemales.reduce(reducer)  // {2018: 1522182}
 
-    // console.log(yearPlusTotalPop)
-    // console.log(yearPlusTotalMales)
-
     totalPopChartData.push(yearPlusTotalPop)  //push to a global variable
     totalMalesChartData.push(yearPlusTotalMales)
     totalFemalesChartData.push(yearPlusTotalFemales)
 
-    // this.setState({
-    //   totalPopChartData: [...this.state.totalPopChartData, this.makeDataForCharts(yearPlusTotalPop)],
-    //   totalMalesChartData: [...this.state.totalMalesChartData, yearPlusTotalMales],
-    //   totalFemalesChartData: [...this.state.totalFemalesChartData, yearPlusTotalFemales],
-    // }, console.log(this.state))
+    //console.log(totalPopChartData)
+    //console.log(this.sortedPopChartData(totalPopChartData)  )
 
-    // console.log(totalPopChartData)   //when the length is === 7, set state
-    // console.log(totalMalesChartData)  //  [{...}, {...}, ...]
-    // console.log(totalFemalesChartData)
 
-    // this.checkLength(totalPopChartData)
-    // this.checkLength(totalMalesChartData)
-    // this.checkLength(totalFemalesChartData)
-
-    if (totalPopChartData.length === 7){
+    if (totalPopChartData.length === 7 && totalMalesChartData.length === 7 && totalFemalesChartData.length === 7){
       this.setState({
-        totalPopChartData: this.makeDataForCharts(totalPopChartData),
-        totalMalesChartData: this.makeDataForCharts(totalMalesChartData),
-        totalFemalesChartData: this.makeDataForCharts(totalFemalesChartData),
-      }, () => console.log(this.state))
+        totalPopChartData: this.makeDataForCharts(this.sortedPopChartData(totalPopChartData)),
+        totalMalesChartData: this.makeDataForCharts(this.sortedPopChartData(totalMalesChartData)),
+        totalFemalesChartData: this.makeDataForCharts(this.sortedPopChartData(totalFemalesChartData)),
+      }, () => console.log(this.state))   // callback !!!!
     }
   }
 
-  // checkLength = (array) => {
-  //   if (array.length === 7){
-  //     this.makeDataForCharts(array)
-  //   }
-  // }
-
   makeDataForCharts = (array) => {
+    console.log(array)
     let data = []
     array.forEach(entry =>
       Object.entries(entry).forEach(([key, val]) => {
-        data = [...data, {x: key,  y: val} ]
+        data = [...data, {x: key,  y: val} ]   // {1990: 23456434}
       })
     )
     console.log(data)
     return data
+  }
+  // [{1990: 23456434}, {1960: 23456434}, ...]
+
+  //SORTS AN ARRAY OF OBJS BY KEY:
+  sortedPopChartData = (array) => {
+    let stringified = array.map((element) => {
+      return JSON.stringify(element)
+    })
+    console.log(stringified)
+    stringified.sort()
+    return stringified.map((stringifiedElement) => {
+      return JSON.parse(stringifiedElement)
+    })
   }
 
   getSelectedCoutriesChartData = (country) => {
@@ -138,9 +133,9 @@ class PopGrowthChart extends Component {
   }
 
   componentDidMount() {
-    //this.makeDataXnYfromProps()
-    //this.fetchDecadesData()
-    this.getSelectedCoutriesChartData(this.state.selectedCountry)
+    //set state with this.props.selectedCountry, then call this:
+
+    this.getSelectedCoutriesChartData(this.props.selectedCountry)
   }
 
   render() {
@@ -154,25 +149,39 @@ class PopGrowthChart extends Component {
       },
     }
 
-    //console.log(this.props.data)   // {Algeria: 1790, ...}
-
-    //this.props.selectedCountry
-
     return (
       <div style={styles.chart}>
       {
-        this.state.totalPopChartData.length > 0 ?
+        this.props.selectedCountry ?
 
-        <LineChart
-          axes
-          grid
-          verticalGrid
-          interpolate={'cardinal'}
-          lineColors={['red', 'blue', 'green']}
-          width={700}
-          height={350}
-          data={[this.state.totalPopChartData, this.state.totalMalesChartData, this.state.totalFemalesChartData]}
-        />
+        <div>
+
+          <h2>Charts for {this.props.selectedCountry}:</h2>
+
+          Population growth (millions)
+          <LineChart
+            axes
+            grid
+            verticalGrid
+            interpolate={'cardinal'}
+            lineColors={['red', 'blue', 'green']}
+            width={700}
+            height={350}
+            data={[this.state.totalPopChartData]}
+          />
+
+        Females and males (millions)
+          <LineChart
+            axes
+            grid
+            verticalGrid
+            interpolate={'cardinal'}
+            lineColors={['red', 'blue', 'green']}
+            width={700}
+            height={350}
+            data={[this.state.totalMalesChartData, this.state.totalFemalesChartData]}
+          />
+        </div>
       : null
       }
       </div>

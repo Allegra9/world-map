@@ -91,7 +91,7 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 
 const PopGrowthMap = ({ ...props, mapData }) => {
 
-  console.log(mapData)
+  //console.log(mapData)
   //console.log(typeof (Object.values(mapData)[0])) //number
 
   // scale: ["#468c53", "#db2b08"],
@@ -133,7 +133,7 @@ const PopGrowthMap = ({ ...props, mapData }) => {
         regions: [
           {
             values: mapData,
-            scale: ["#146804", "#ff0000"],   
+            scale: ["#146804", "#ff0000"],
             normalizeFunction: "polynomial"
           }
         ]

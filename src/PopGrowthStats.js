@@ -130,12 +130,13 @@ class PopGrowthStats extends React.Component {
     this.getState()
   }
 
-  // handleClick = (e) => {
-  //   console.log(e.target.id)
-  //   this.setState({
-  //     selectedCountry: e.target.id
-  //   })
-  // }
+  handleClick = (e) => {
+    this.props.selectCountry(e.target.id)
+    console.log(e.target.id)
+    // this.setState({
+    //   selectedCountry: e.target.id   // India
+    // })
+  }
 
   render() {
 
@@ -147,14 +148,14 @@ class PopGrowthStats extends React.Component {
     const yearly = Object.values(this.state.yearly)
     const in10yrs = Object.values(this.state.in10yrs)
 
-    console.log(this.props.growthDaily)
-    console.log(this.state.countries)
-    console.log(this.state.daily)
-    console.log(this.state.weekly)
-    console.log(this.state.yearly)
-    console.log(this.state.in10yrs)
+    //console.log(this.props.growthDaily)
+    //console.log("Countries:", this.state.countries)
+    // console.log(this.state.daily)
+    // console.log(this.state.weekly)
+    // console.log(this.state.yearly)
+    // console.log(this.state.in10yrs)
 
-    console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
+    //console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
     // x every day, x/24 hour, x/24/60 minute, x/24/60/60 second
 
     const styles = {       // style={styles.container}
@@ -196,6 +197,7 @@ class PopGrowthStats extends React.Component {
       },
       liCountry: {
         borderBottom: '1px #000 solid',
+        cursor: 'pointer',
       },
       div: {
         border: '1px #000 solid',
@@ -233,7 +235,7 @@ class PopGrowthStats extends React.Component {
               // console.log(countriesFlags)
 
               countries.map(country =>
-                <li style={styles.liCountry}  id={country}>
+                <li style={styles.liCountry}  id={country} onClick={this.handleClick}>
                    {this.getAFlag(country)} {country}
                 </li>)
                 // onClick={this.handleClick}   if I wanted to get a country onClick
@@ -282,7 +284,7 @@ class PopGrowthStats extends React.Component {
           </ul>
         </span>
       </div>
-      
+
     </div>
     )
 

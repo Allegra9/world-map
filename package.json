@@ -9,6 +9,7 @@
     "react-easy-chart": "^1.0.0",
     "react-jvectormap": "0.0.3",
     "react-scripts": "1.1.5",
+    "react-select": "^2.0.0",
     "save": "^2.3.2",
     "victory": "^30.3.1",
     "world-countries": "^2.0.0"

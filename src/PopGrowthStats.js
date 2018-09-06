@@ -156,7 +156,6 @@ class PopGrowthStats extends React.Component {
     // console.log(this.state.in10yrs)
 
     //console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
-    // x every day, x/24 hour, x/24/60 minute, x/24/60/60 second
 
     const styles = {       // style={styles.container}
       gridContainer: {
@@ -236,8 +235,9 @@ class PopGrowthStats extends React.Component {
 
               countries.map(country =>
                 <li style={styles.liCountry}  id={country} onClick={this.handleClick}>
-                   {this.getAFlag(country)} {country} 
-                </li>)
+                   {this.getAFlag(country)} {country}
+                </li>
+              )
                 // onClick={this.handleClick}   if I wanted to get a country onClick
                 // {this.getAFlag(country)}
             }

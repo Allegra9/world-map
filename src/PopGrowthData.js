@@ -4,7 +4,6 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
 import PopGrowthStats from './PopGrowthStats'
 import PopGrowthChart from './PopGrowthChart'
-import Select from 'react-select'
 
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
@@ -16,12 +15,6 @@ const countries = require('country-list')();
 //console.log(countries.getData())
 const countriesNCodes = countries.getData()  // countriesNCodes
 // console.log(countriesNCodes)   // [0].name   [0].code
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
 
 class PopGrowthData extends React.Component {
 
@@ -131,54 +124,12 @@ class PopGrowthData extends React.Component {
     });
   }
 
-//   this.setState({
-//     populationGrowth: [...this.state.populationGrowth, data["total_population"][1].population - data["total_population"][0].population]
-// })
-
-// Object.keys(countryData), countryData[country]['total_population'][1].population -
-//    countryData[country]['total_population'][0].population
-
-// console.log(Object.keys(object1));  //to get the keys
-// Object.keys(obj).length !== 0  //if not empty
-
-// Object.keys(myObj).forEach(key => {
-//     console.log(key);          // the name of the current key.
-//     console.log(myObj[key]);   // the value of the current key.
-// });
-
   handleBtnClick = () => {
     this.setState({
       selectedCountry: ''
     }, () => console.log(this.state.selectedCountry))
     //console.log(this.state.buttonClicked)
   }
-
-  // handleChange = (selectedOption) => {
-  //   this.setState({
-  //     selectedCountry: selectedOption
-  //   }, () => this.getCountryOptions() )
-  //   //() => console.log(this.state.selectedCountry))
-  // }
-
-//MAKE THIS STRUCTURE:
-  // const options = [
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'strawberry', label: 'Strawberry' },
-  //   { value: 'vanilla', label: 'Vanilla' }
-  // ];
-
-  // getCountryOptions = () => {
-  //   if (this.state.countryDataNames.length > 0){    // {Algeria: 1790, ...}
-  //     let countries = []
-  //     Object.entries(this.state.countryDataNames).forEach(([key, val]) => {
-  //       countries = [countries, key]
-  //     })
-  //     console.log(countries)
-  //     return countries
-  //   }else {
-  //     console.log("this.state.countryDataNames.length < 0")
-  //   }
-  // }
 
   render() {
 
@@ -209,11 +160,16 @@ class PopGrowthData extends React.Component {
             this.state.selectedCountry !== '' ?
             <div style={styles.div}>
               <button onClick={this.handleBtnClick}>Go back to stats</button>
-              <PopGrowthChart selectedCountry={this.state.selectedCountry}/>
+              <PopGrowthChart
+                selectedCountry={this.state.selectedCountry}
+                growthDaily={this.state.countryDataNames}
+                selectCountry={this.selectCountry}
+              />
             </div>
             :
             <div>
-              <PopGrowthStats growthDaily={this.state.countryDataNames} selectCountry={this.selectCountry}/>
+              <PopGrowthStats growthDaily={this.state.countryDataNames}
+                selectCountry={this.selectCountry}/>
             </div>
           }
         </div>
@@ -222,7 +178,6 @@ class PopGrowthData extends React.Component {
     </div>
   )
 }
-
 
 } //class
 
@@ -252,3 +207,46 @@ export default PopGrowthData
 //     val['total_population'][0].population );
 //   })
 // )
+
+
+//   this.setState({
+//     populationGrowth: [...this.state.populationGrowth, data["total_population"][1].population - data["total_population"][0].population]
+// })
+
+// Object.keys(countryData), countryData[country]['total_population'][1].population -
+//    countryData[country]['total_population'][0].population
+
+// console.log(Object.keys(object1));  //to get the keys
+// Object.keys(obj).length !== 0  //if not empty
+
+// Object.keys(myObj).forEach(key => {
+//     console.log(key);          // the name of the current key.
+//     console.log(myObj[key]);   // the value of the current key.
+// });
+
+// handleChange = (selectedOption) => {
+//   this.setState({
+//     selectedCountry: selectedOption
+//   }, () => this.getCountryOptions() )
+//   //() => console.log(this.state.selectedCountry))
+// }
+
+//MAKE THIS STRUCTURE:
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' }
+// ];
+
+// getCountryOptions = () => {
+//   if (this.state.countryDataNames.length > 0){    // {Algeria: 1790, ...}
+//     let countries = []
+//     Object.entries(this.state.countryDataNames).forEach(([key, val]) => {
+//       countries = [countries, key]
+//     })
+//     console.log(countries)
+//     return countries
+//   }else {
+//     console.log("this.state.countryDataNames.length < 0")
+//   }
+// }

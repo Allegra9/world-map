@@ -1,39 +1,8 @@
 import React, { Component } from 'react';
-
-//import { VictoryChart, VictoryScatter, VictoryLine } from 'victory';
-// npm i victory --save
-
 import {LineChart} from 'react-easy-chart';
 // npm i react-easy-charts --save
 
-const data = [
-  { x: 1960, y: 0 },
-  { x: 1970, y: 2000000 },
-  { x: 1980, y: 100 },
-  { x: 1990, y: 44 },
-  { x: 2000, y: 33 },
-  { x: 2010, y: 55 }
-];
-
-const data2 = [
-  {x: 1960, y: 2748343},
-  {x: 1970, y: 3100143},
-  {x: 1980, y: 3380306},
-  {x: 1990, y: 3697393},
-  {x: 2000, y: 3486373},
-  {x: 2010, y: 3122835},
-  {x: 2020, y: 2817402}
-];
-
-const data3 = [
-  {x: 1960, y: 2743},
-  {x: 1970, y: 31043},
-  {x: 1980, y: 33806},
-  {x: 1990, y: 369703},
-  {x: 2000, y: 347773},
-  {x: 2010, y: 3135},
-  {x: 2020, y: 28172}
-];
+import Select from 'react-select'
 
 let totalPopChartData = []
 let totalMalesChartData = []
@@ -50,6 +19,8 @@ class PopGrowthChart extends Component {
       totalMalesChartData: [],
       totalFemalesChartData: [],
       //data: [],     // data={ [data, data2, data3] }   // each data is an array
+      selectedOption: '',    // added
+      loading: true,
   }
 
   // `http://api.population.io:80/1.0/population/1980/Brazil/`
@@ -59,6 +30,7 @@ class PopGrowthChart extends Component {
     + `${year}/${country}/`)
     .then(res => res.json())
     .then(res => this.getReducedValueForEachYear(year, res))
+    .then(() => this.setState({loading: false}))
   }
 
   getReducedValueForEachYear = (year, array) => {
@@ -110,14 +82,14 @@ class PopGrowthChart extends Component {
   }
 
   makeDataForCharts = (array) => {
-    console.log(array)
+    //console.log(array)
     let data = []
     array.forEach(entry =>
       Object.entries(entry).forEach(([key, val]) => {
         data = [...data, {x: key,  y: val} ]   // {1990: 23456434}
       })
     )
-    console.log(data)
+    //console.log(data)
     return data
   }
   // [{1990: 23456434}, {1960: 23456434}, ...]
@@ -134,15 +106,56 @@ class PopGrowthChart extends Component {
     })
   }
 
-  getSelectedCoutriesChartData = (country) => {
+  getSelectedCountriesChartData = (country) => {
     let decades = [1960, 1970, 1980, 1990, 2000, 2010, new Date().getFullYear()]
     decades.forEach(year => this.fetchDecadesData(year, country))
   }
 
   componentDidMount() {
-    //set state with this.props.selectedCountry, then call this:
+    this.getSelectedCountriesChartData(this.props.selectedCountry)
+  }
 
-    this.getSelectedCoutriesChartData(this.props.selectedCountry)
+  getCountries = () => {    // gets countries array
+    //console.log(this.props.growthDaily)
+    let obj = {...this.props.growthDaily}
+    let allCountriesArray = []
+    Object.entries(obj).forEach(([key, val]) => {
+      //console.log(key)
+      allCountriesArray.push(key)
+    })
+    //console.log(allCountriesArray)   // all countries array
+    return this.makeSelectObj(allCountriesArray)
+  }
+
+  makeSelectObj = (array) => {  // makes an array of options for the select
+    //console.log(array)
+    let selectOptions = []
+    array.forEach(entry => {
+      let obj = {}
+      obj['value'] = entry, obj['label'] = entry  // {value: "Zimbabwe", label: "Zimbabwe"}
+      selectOptions = [...selectOptions, obj]
+    })
+    return selectOptions
+  }
+
+  // const options = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' }
+  // ];
+
+  handleChange = (selectedOption) => {    // added
+    this.props.selectCountry(Object.values(selectedOption)[0])
+    this.setState({
+      loading: true
+    }, () => this.getSelectedCountriesChartData(Object.values(selectedOption)[0]))
+
+    //console.log(Object.values(selectedOption)[0])
+
+    // this.setState({
+    //   selectedOption: Object.values(selectedOption)[0]
+    // }, () => console.log(`Option selected:`, this.state.selectedOption)  )
+    // console.log(`Option selected:`, selectedOption)
   }
 
   render() {
@@ -154,14 +167,26 @@ class PopGrowthChart extends Component {
         margin: 50,
         padding: 70,
       },
+
     }
+
+    //console.log(this.props.growthDaily)
+
+    //  isMulti={true}
 
     return (
       <div style={styles.chart}>
       {
-        this.props.selectedCountry ?
+        this.props.selectedCountry && !this.state.loading ?
 
         <div>
+          <Select
+            value={this.state.selectedOption}
+            onChange={this.handleChange}
+            options={this.getCountries()}
+            placeholder='Select a country...'
+            isSearchable={true}
+          />
 
           <h2>Charts for {this.props.selectedCountry}:</h2>
 
@@ -193,7 +218,8 @@ class PopGrowthChart extends Component {
             data={[this.state.totalMalesChartData, this.state.totalFemalesChartData]}
           />
         </div>
-      : null
+      : <h1>LOADING...</h1>
+
       }
       </div>
     );
@@ -203,8 +229,27 @@ class PopGrowthChart extends Component {
 export default PopGrowthChart
 
 
+//  <h1>LOADING...</h1>
+
+
+// <Select
+//   value={this.state.selectedOption}
+//   onChange={this.handleChange}
+//   options={this.getCountries()}
+//   placeholder='Select a country...'
+//   isMulti={true}         can do mulitple select options
+//   isSearchable={true}    will search if country name includes the input
+// />
+
 
 //   data={[data, data2, data3]}
+
+
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' }
+// ];
 
 
 // {1960: 2748343}
@@ -312,3 +357,33 @@ export default PopGrowthChart
 //     )}
 //   </select>
 // );
+
+
+// const data = [
+//   { x: 1960, y: 0 },
+//   { x: 1970, y: 2000000 },
+//   { x: 1980, y: 100 },
+//   { x: 1990, y: 44 },
+//   { x: 2000, y: 33 },
+//   { x: 2010, y: 55 }
+// ];
+//
+// const data2 = [
+//   {x: 1960, y: 2748343},
+//   {x: 1970, y: 3100143},
+//   {x: 1980, y: 3380306},
+//   {x: 1990, y: 3697393},
+//   {x: 2000, y: 3486373},
+//   {x: 2010, y: 3122835},
+//   {x: 2020, y: 2817402}
+// ];
+//
+// const data3 = [
+//   {x: 1960, y: 2743},
+//   {x: 1970, y: 31043},
+//   {x: 1980, y: 33806},
+//   {x: 1990, y: 369703},
+//   {x: 2000, y: 347773},
+//   {x: 2010, y: 3135},
+//   {x: 2020, y: 28172}
+// ];

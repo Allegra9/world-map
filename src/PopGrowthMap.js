@@ -2,6 +2,63 @@ import React from 'react';
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 
+const PopGrowthMap = ({ ...props, mapData }) => {
+
+  //console.log(mapData)
+  //console.log(typeof (Object.values(mapData)[0])) //number
+
+  // scale: ["#468c53", "#db2b08"],
+  //scale: ["#5faf50", "#f94a18"],
+  // scale: ["#125b04", "#ff0000"],   dark
+
+  return (
+    <div>
+    <VectorMap
+      map={"world_mill"}
+      backgroundColor="transparent"
+      zoomOnScroll={false}
+      containerStyle={{
+        width: "100%",
+        height: "420px"
+      }}
+      containerClassName="map"
+      regionStyle={{
+        initial: {
+          fill: "#e4e4e4",
+          "fill-opacity": 0.9,
+          stroke: "none",
+          "stroke-width": 0,
+          "stroke-opacity": 0
+        },
+        hover: {
+          "fill-opacity": 0.8,
+          cursor: 'pointer'
+        },
+        selected: {
+          fill: '#2938bc'
+        },
+        selectedHover: {
+        }
+      }}
+      regionsSelectable={true}
+      markerSelected={true}
+      series={{
+        regions: [
+          {
+            values: mapData,
+            scale: ["#146804", "#ff0000"],
+            normalizeFunction: "polynomial"
+          }
+        ]
+      }}
+    />
+    </div>
+  );
+}
+
+export default PopGrowthMap;
+
+
 //import worldCountries from 'world-countries' //npm i world-countries
 //let worldCountries = require("world-countries")  //npm i world-countries
 //import countries from 'country-list'  // npm i country-list
@@ -87,60 +144,3 @@ import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 //     console.log(key);          // the name of the current key.
 //     console.log(val);          // the value of the current key.
 // });
-
-
-const PopGrowthMap = ({ ...props, mapData }) => {
-
-  //console.log(mapData)
-  //console.log(typeof (Object.values(mapData)[0])) //number
-
-  // scale: ["#468c53", "#db2b08"],
-  //scale: ["#5faf50", "#f94a18"],
-  // scale: ["#125b04", "#ff0000"],   dark
-
-  return (
-    <div>
-    <VectorMap
-      map={"world_mill"}
-      backgroundColor="transparent"
-      zoomOnScroll={false}
-      containerStyle={{
-        width: "100%",
-        height: "420px"
-      }}
-      containerClassName="map"
-      regionStyle={{
-        initial: {
-          fill: "#e4e4e4",
-          "fill-opacity": 0.9,
-          stroke: "none",
-          "stroke-width": 0,
-          "stroke-opacity": 0
-        },
-        hover: {
-          "fill-opacity": 0.8,
-          cursor: 'pointer'
-        },
-        selected: {
-          fill: '#2938bc'
-        },
-        selectedHover: {
-        }
-      }}
-      regionsSelectable={true}
-      markerSelected={true}
-      series={{
-        regions: [
-          {
-            values: mapData,
-            scale: ["#146804", "#ff0000"],
-            normalizeFunction: "polynomial"
-          }
-        ]
-      }}
-    />
-    </div>
-  );
-}
-
-export default PopGrowthMap;

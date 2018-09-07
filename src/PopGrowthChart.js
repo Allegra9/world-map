@@ -158,6 +158,11 @@ class PopGrowthChart extends Component {
     // console.log(`Option selected:`, selectedOption)
   }
 
+
+  getGlobe = () => {
+    document.getElementById('globe').append('body')
+  }
+
   render() {
     const styles = {       // style={styles.container}
       chart: {

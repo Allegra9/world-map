@@ -146,6 +146,7 @@ class PopGrowthData extends React.Component {
     select: {
       margin: '50px 20px',
     },
+
   }
 
   return (

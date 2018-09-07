@@ -207,17 +207,19 @@ class PopGrowthStats extends React.Component {
         marginTop: '50px',
       },
       span: {
-        border: '1px #000 solid',
+        //border: '1px #000 solid',
         padding: '15px',
         marginLeft: '8px',
         fontWeight: '900',
-        backgroundColor: 'red',
+        //backgroundColor: 'red',
+        color: 'red',
 
       }
     }
 
     return (
       <div>
+
         <div style={styles.div}>
           Our current world's population growth is
           <span style={styles.span}>{this.state.reducedDaily}</span> people per day,

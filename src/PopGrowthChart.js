@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import {LineChart, ToolTip } from 'react-easy-chart';
+import React, { Component } from 'react'
+import { LineChart } from 'react-easy-chart'
 // npm i react-easy-charts --save
 
+// import PopAgeTable from './PopAgeTable'
 import Select from 'react-select'
 
 let totalPopChartData = []
@@ -180,6 +181,7 @@ class PopGrowthChart extends Component {
 
     return (
       <div style={styles.chart}>
+
       {
         this.props.selectedCountry && !this.state.loading ?
 

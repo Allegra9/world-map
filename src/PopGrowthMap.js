@@ -2,7 +2,9 @@ import React from 'react';
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 
-const PopGrowthMap = ({ ...props, mapData, countryClick, countryCliked }) => {
+import PopAgeTable from './PopAgeTable'
+
+const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
 
   //console.log(mapData)
   //console.log(typeof (Object.values(mapData)[0])) //number
@@ -58,6 +60,12 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryCliked }) => {
         ]
       }}
     />
+  {
+    countryClicked.length > 0 ?
+      <PopAgeTable country={countryClicked} />
+      : null
+  }
+
     </div>
   );
 }

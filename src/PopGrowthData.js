@@ -18,7 +18,7 @@ const countriesNCodes = countries.getData()  // countriesNCodes
 
 class PopGrowthData extends React.Component {
 
-  state={
+  state = {
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
     countryDataNames: {},     // {Algeria: 1790, ...}
     //buttonClicked: false,
@@ -166,7 +166,7 @@ class PopGrowthData extends React.Component {
           <PopGrowthMap
             mapData={this.state.countryDataCodes}
             countryClick={this.countryClickOnMap}
-            countryCliked={this.state.countryClickedOnMap}
+            countryClicked={this.state.countryClickedOnMap}
           />
 
           {

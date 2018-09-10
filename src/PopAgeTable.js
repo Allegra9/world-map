@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { PieChart } from 'react-easy-chart'
 
+import './App.css';
+
+// import { Grid, Row, Col } from 'react-bootstrap';
+
 class PopAgeTable extends Component {
 
   state = {
@@ -99,26 +103,63 @@ class PopAgeTable extends Component {
   }
 
   render() {
+    const styles = {       // style={styles.container}
+      table: {
+        height: '500px',
+        width: "72%",
+        border: '1px #000 solid',
+        marginTop: '100px',
+        marginLeft: '5%',
+        padding: '50px',
+        paddingLeft: '200px',
+        //display: 'inline',
+      },
+      pie: {
+        display: 'inline',
+        margin: '150px',
+        // marginLeft: '300px',
+        // paddingLeft: '300px',
+        width: '400px',
+      },
+      pie2: {
+        display: 'inline',
+        position: 'absolute',
+        marginTop: '-380px',
+        marginLeft: '450px',
+        width: '400px',
+      },
+      h2: {
+        textAlign: 'center',
+        marginLeft: '-180px',
+        marginBottom: '50px',
+      }
+
+    }
 
     return (
-      <div>
-        Data table here for {this.props.country}
+      <div style={styles.table}>
+        <h2 style={styles.h2}>{this.props.country} Age Dependency charts</h2>
 
-      2018:
-        <PieChart
-         labels
-         size={300}
-         innerHoleSize={100}
-         data={this.state.data}
-        />
+      <div style={styles.pie}>
+        <h4>2018 (estimated):</h4>
+          <PieChart
+           labels
+           size={300}
+           innerHoleSize={100}
+           data={this.state.data}
+          />
+      </div>
 
-      2050:
-        <PieChart
-         labels
-         size={301}
-         innerHoleSize={100}
-         data={this.state.data2050}
-        />
+      <div style={styles.pie2}>
+        <h4>2050 (projected):</h4>
+          <PieChart
+           labels
+           size={301}
+           innerHoleSize={100}
+           data={this.state.data2050}
+           style={styles.pie}
+          />
+      </div>
 
       </div>
     )
@@ -126,6 +167,10 @@ class PopAgeTable extends Component {
 }
 
 export default PopAgeTable
+
+// 2018:   pie-chart-c9f81a9cf0d6db6de6f3df49c03aa4379964eac9
+
+// 2050:  pie-chart-3e3e0fb2115ddeabe61e32464c63cade18f5e781
 
 // {
 //   "females": 1457841,

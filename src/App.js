@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
 
   state={
-    entered: false,
+    entered: true,
   }
 
   handleClick = () => {
@@ -21,8 +21,8 @@ class App extends React.Component {
 
   hideGlobe = () => {
     console.log('why not HIDDEN ?????')
-    document.getElementById('globe').style.display = "none !important"
-    document.getElementById('globe').remove()
+    document.querySelector('canvas').remove()
+    //document.getElementById('globe').remove()
   }
 
   render() {
@@ -30,28 +30,38 @@ class App extends React.Component {
     const styles = {       // style={styles.container}
       btn: {
         backgroundColor: '#000',
-        color: '#f4df42',
+        color: '#d6d0b1',
         padding: '10px 30px',
         fontSize: '2.5em',
         borderRadius: '5px',
+        position: 'absolute',
+        marginTop: '300px',
+        left: '45%',
+      },
+      mainDiv: {
+        marginBottom: 0,
+
       }
     }
 
     return (
       <div>
-        <Navbar />
 
         {this.state.entered ?
 
+        <div style={styles.mainDiv}>
+          <Navbar />
         <PopGrowthData />
+
+        </div>
         :
         <div>
           { /* remove the GLOBE */ }
           <button onClick={this.handleClick} style={styles.btn}>Enter</button>
         </div>
+
         }
 
-        <FooterBar />
       </div>
     )
   }
@@ -59,6 +69,29 @@ class App extends React.Component {
 }
 
 export default App
+
+// return (
+//   <div>
+//
+//     {this.state.entered ?
+//
+//     <div style={styles.mainDiv}>
+//       <Navbar />
+//     <PopGrowthData />
+//
+//     </div>
+//     :
+//     <div>
+//       { /* remove the GLOBE */ }
+//       <button onClick={this.handleClick} style={styles.btn}>Enter</button>
+//     </div>
+//
+//     }
+//
+//   </div>
+// )
+
+//  add <Footer />    somewhere !!!!!
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 

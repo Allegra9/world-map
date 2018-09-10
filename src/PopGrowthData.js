@@ -22,9 +22,17 @@ class PopGrowthData extends React.Component {
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
     countryDataNames: {},     // {Algeria: 1790, ...}
     //buttonClicked: false,
-    selectedCountry: '',
+    selectedCountry: 'United Kingdom',
+    countryClickedOnMap: '',
   }
   //   {Canada: { total_population: [{...},{...}] } }
+
+  countryClickOnMap = (countryCode) => {
+    let country = countries.getName(countryCode)
+    this.setState({
+      countryClickedOnMap: country
+    }, () => console.log(this.state.countryClickedOnMap) )
+  }
 
   selectCountry = (country) => {
     this.setState({
@@ -73,7 +81,7 @@ class PopGrowthData extends React.Component {
 
   //reformating the data for the state, to be passed as props:  code: data
   getCountryDataCodesObject = (finalData) => {
-    console.log(finalData)
+    //console.log(finalData)
     let countryCodeGrowthData = {}
     finalData = finalData.map(entry =>
       Object.entries(entry).forEach(([key, val]) => {  // country: population_data arr w 2 objs
@@ -155,7 +163,11 @@ class PopGrowthData extends React.Component {
         Object.keys(this.state.countryDataCodes).length > 0
         ?
         <div>
-          <PopGrowthMap mapData={this.state.countryDataCodes}/>
+          <PopGrowthMap
+            mapData={this.state.countryDataCodes}
+            countryClick={this.countryClickOnMap}
+            countryCliked={this.state.countryClickedOnMap}
+          />
 
           {
             this.state.selectedCountry !== '' ?
@@ -169,7 +181,8 @@ class PopGrowthData extends React.Component {
             </div>
             :
             <div>
-              <PopGrowthStats growthDaily={this.state.countryDataNames}
+              <PopGrowthStats
+                growthDaily={this.state.countryDataNames}
                 selectCountry={this.selectCountry}/>
             </div>
           }

@@ -4,8 +4,8 @@ const Navbar = () => {
   const styles = {
     nav: {
       background: '#000',
-      color: '#f4df42',
-      height: '200px',
+      color: '#d6d0b1',
+      height: '180px',
       margin: '0 auto 100px 0',
     },
     title: {
@@ -14,7 +14,7 @@ const Navbar = () => {
       textAlign: 'center',
     },
     subtitle: {
-      fontSize: '1.5em',
+      fontSize: '1.2em',
       textAlign: 'center',
 
     }

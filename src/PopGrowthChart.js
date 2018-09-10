@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {LineChart} from 'react-easy-chart';
+import {LineChart, ToolTip } from 'react-easy-chart';
 // npm i react-easy-charts --save
 
 import Select from 'react-select'
@@ -158,10 +158,9 @@ class PopGrowthChart extends Component {
     // console.log(`Option selected:`, selectedOption)
   }
 
-
-  getGlobe = () => {
-    document.getElementById('globe').append('body')
-  }
+  // getGlobe = () => {
+  //   document.getElementById('globe').append('body')
+  // }
 
   render() {
     const styles = {       // style={styles.container}
@@ -203,7 +202,7 @@ class PopGrowthChart extends Component {
             grid
             verticalGrid
             interpolate={'cardinal'}
-            lineColors={['red']}
+            lineColors={['red', 'green']}
             width={700}
             height={350}
             data={[this.state.totalPopChartData]}

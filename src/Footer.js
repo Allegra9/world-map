@@ -4,7 +4,7 @@ const Footer = () => {
   const styles = {
     footer: {
       background: '#000',
-      color: '#f4df42',
+      color: '#d6d0b1',
       height: '200px',
       margin: '0 auto 100px 0',
     },

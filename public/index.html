@@ -11,6 +11,9 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
+    <link href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text|Montserrat|Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Great+Vibes" rel="stylesheet">
+
     <!-- jVectorMap: -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css" type="text/css" media="screen"/>
     <!--
@@ -38,101 +41,86 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
 
-    <style>
-      #globe {
-        /*display: none !important;
-        /* position: absolute;
-        left: -999999px; */
-      }
-      body {
+    <div id="root"></div>
 
-      }
+    <!-- <script>
+        let width = 160,    //change size   960 og
+          height = 160,
+          speed = -1e-2,    // change speed here
+          start = Date.now();
 
-    </style>
+        let sphere = {type: "Sphere"};
 
-<div id="root"></div>
+        let projection = d3.geo.orthographic()
+          .scale(width / 2.1)
+          .translate([width / 2, height / 2])
+          .precision(.5);
 
-<div id="globe">
-  <script src="https://d3js.org/d3.v3.min.js"></script>
-  <script src="https://d3js.org/topojson.v1.min.js"></script>
-  <script>
+        let graticule = d3.geo.graticule();
 
-  let width = 160,    //change size   960 og
-    height = 160,
-    speed = -1e-2,    // change speed here
-    start = Date.now();
+        let canvas = d3.select("body").append("canvas")
+          .attr("width", width)
+          .attr("height", height);
 
-  let sphere = {type: "Sphere"};
+        let context = canvas.node().getContext("2d");
 
-  let projection = d3.geo.orthographic()
-    .scale(width / 2.1)
-    .translate([width / 2, height / 2])
-    .precision(.5);
+        let path = d3.geo.path()
+          .projection(projection)
+          .context(context);
 
-  let graticule = d3.geo.graticule();
+        d3.json("http://bl.ocks.org/mbostock/raw/4090846/world-110m.json", function(error, topo) {
+          if (error) throw error;
 
-  let canvas = d3.select("body").append("canvas")
-    .attr("width", width)
-    .attr("height", height);
+          let land = topojson.feature(topo, topo.objects.land),
+              grid = graticule();
 
-  let context = canvas.node().getContext("2d");
+          d3.timer(function() {
+            context.clearRect(0, 0, width, height);
 
-  let path = d3.geo.path()
-    .projection(projection)
-    .context(context);
+            projection.rotate([speed * (Date.now() - start), -15]).clipAngle(90);
 
-  d3.json("http://bl.ocks.org/mbostock/raw/4090846/world-110m.json", function(error, topo) {
-  if (error) throw error;
+            context.beginPath();
+            path(sphere);
+            context.lineWidth = 3;
+            context.strokeStyle = "#000";
+            context.stroke();
+            context.fillStyle = "#fff";
+            context.fill();
 
-  let land = topojson.feature(topo, topo.objects.land),
-      grid = graticule();
+            projection.clipAngle(180);
 
-  d3.timer(function() {
-    context.clearRect(0, 0, width, height);
+            context.beginPath();
+            path(land);
+            context.fillStyle = "#dadac4";
+            context.fill();
 
-    projection.rotate([speed * (Date.now() - start), -15]).clipAngle(90);
+            context.beginPath();
+            path(grid);
+            context.lineWidth = .5;
+            context.strokeStyle = "rgba(119,119,119,.5)";
+            context.stroke();
 
-    context.beginPath();
-    path(sphere);
-    context.lineWidth = 3;
-    context.strokeStyle = "#000";
-    context.stroke();
-    context.fillStyle = "#fff";
-    context.fill();
+            projection.clipAngle(90);
 
-    projection.clipAngle(180);
+            context.beginPath();
+            path(land);
+            context.fillStyle = "#737368";
+            context.fill();
+            context.lineWidth = .5;
+            context.strokeStyle = "#000";
+            context.stroke();
+          });
+        });
 
-    context.beginPath();
-    path(land);
-    context.fillStyle = "#dadac4";
-    context.fill();
-
-    context.beginPath();
-    path(grid);
-    context.lineWidth = .5;
-    context.strokeStyle = "rgba(119,119,119,.5)";
-    context.stroke();
-
-    projection.clipAngle(90);
-
-    context.beginPath();
-    path(land);
-    context.fillStyle = "#737368";
-    context.fill();
-    context.lineWidth = .5;
-    context.strokeStyle = "#000";
-    context.stroke();
-  });
-  });
-
-  d3.select(self.frameElement).style("height", height + "px");
-
-  </script>
-</div>
-
-<div id="root"></div>
-
+      d3.select(self.frameElement).style("height", height + "px");
+    </script> -->
 
   </body>
+
+  <footer>
+    Powered by <a href='http://api.population.io/'>World Population API</a>
+  </footer>
 </html>

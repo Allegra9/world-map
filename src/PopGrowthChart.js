@@ -183,6 +183,9 @@ class PopGrowthChart extends Component {
         gridColumnStart: '1',
         gridColumnEnd: '3',
       },
+      h4: {
+        textAlign: 'center',
+      },
       select: {
         gridColumnStart: '1',
         gridColumnEnd: '3',
@@ -214,7 +217,7 @@ class PopGrowthChart extends Component {
         <h2 style={styles.h2}>Charts for {this.props.selectedCountry}:</h2>
 
         <div style={styles.chart} class="chart">
-          <h4>Population growth (millions)</h4>
+          <h4 style={styles.h4}>Population growth (millions):</h4>
           <LineChart
             axes
             xTicks={6}
@@ -222,7 +225,7 @@ class PopGrowthChart extends Component {
             grid
             verticalGrid
             interpolate={'cardinal'}
-            lineColors={['red', 'green']}
+            lineColors={['red']}
             width={580}
             height={350}
             data={[this.state.totalPopChartData]}
@@ -230,7 +233,7 @@ class PopGrowthChart extends Component {
         </div>
 
         <div style={styles.chart} class="chart">
-          <h4>Females and males (millions)</h4>
+          <h4 style={styles.h4}>Females and males (millions):</h4>
           <LineChart
             style={styles.chart}
             axes

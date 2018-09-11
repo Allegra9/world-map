@@ -5,6 +5,9 @@ import PopGrowthMap from './PopGrowthMap'
 import PopGrowthStats from './PopGrowthStats'
 import PopGrowthChart from './PopGrowthChart'
 
+//import Button from 'components/CustomButton/CustomButton.jsx';
+import { Button } from 'react-bootstrap';
+
 //not using this here yet:
 import worldCountries from 'world-countries' //npm i world-countries
 
@@ -22,7 +25,7 @@ class PopGrowthData extends React.Component {
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
     countryDataNames: {},     // {Algeria: 1790, ...}
     //buttonClicked: false,
-    selectedCountry: 'United Kingdom',
+    selectedCountry: '',
     countryClickedOnMap: '',
   }
   //   {Canada: { total_population: [{...},{...}] } }
@@ -148,12 +151,21 @@ class PopGrowthData extends React.Component {
 
   const styles = {       // style={styles.container}
     div: {
-      //backgroundColor: '#000',
       marginTop: '100px',
     },
-    select: {
-      margin: '50px 20px',
-    },
+    btn: {
+      padding: '1%',
+      border: 'none',
+    //  marginLeft:
+      // marginLeft: 'auto',
+      // marginRight: 'auto',
+      width: '20%',
+      cursor: 'pointer',
+      fontSize: '1.3em',
+      textDecoration: 'underline',
+      color: 'pink',
+
+    }
 
   }
 
@@ -162,32 +174,36 @@ class PopGrowthData extends React.Component {
       {
         Object.keys(this.state.countryDataCodes).length > 0
         ?
-        <div>
-          <PopGrowthMap
-            mapData={this.state.countryDataCodes}
-            countryClick={this.countryClickOnMap}
-            countryClicked={this.state.countryClickedOnMap}
-          />
+          <div>
+            <PopGrowthMap
+              mapData={this.state.countryDataCodes}
+              countryClick={this.countryClickOnMap}
+              countryClicked={this.state.countryClickedOnMap}
+            />
 
-          {
-            this.state.selectedCountry !== '' ?
-            <div style={styles.div}>
-              <button onClick={this.handleBtnClick}>Go back to stats</button>
-              <PopGrowthChart
-                selectedCountry={this.state.selectedCountry}
-                growthDaily={this.state.countryDataNames}
-                selectCountry={this.selectCountry}
-              />
-            </div>
-            :
-            <div>
-              <PopGrowthStats
-                growthDaily={this.state.countryDataNames}
-                selectCountry={this.selectCountry}/>
-            </div>
-          }
-        </div>
-        : <h1>LOADING...</h1>
+            {
+              this.state.selectedCountry !== ''
+              ?
+                <div style={styles.div}>
+                  <button onClick={this.handleBtnClick} style={styles.btn} className='btn'>
+                    Back to stats</button>
+                  <PopGrowthChart
+                    selectedCountry={this.state.selectedCountry}
+                    growthDaily={this.state.countryDataNames}
+                    selectCountry={this.selectCountry}
+                  />
+                </div>
+              :
+                <div>
+                  <PopGrowthStats
+                    growthDaily={this.state.countryDataNames}
+                    selectCountry={this.selectCountry}/>
+                </div>
+            }
+          </div>
+
+        : 
+        <h1>LOADING...</h1>
       }
     </div>
   )

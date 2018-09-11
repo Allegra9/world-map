@@ -49,16 +49,15 @@ class App extends React.Component {
 
         {this.state.entered ?
 
-        <div style={styles.mainDiv}>
-          <Navbar />
-        <PopGrowthData />
-
-        </div>
+          <div style={styles.mainDiv}>
+            <Navbar />
+            <PopGrowthData />
+          </div>
         :
-        <div>
-          { /* remove the GLOBE */ }
-          <button onClick={this.handleClick} style={styles.btn}>Enter</button>
-        </div>
+          <div>
+            { /* remove the GLOBE */ }
+            <button onClick={this.handleClick} style={styles.btn}>Enter</button>
+          </div>
 
         }
 

@@ -18,6 +18,12 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
     countryClick(countryCode)
   }
 
+  const styles = {
+    noData: {
+      textAlign: 'center',
+    },
+  }
+
   return (
     <div>
     <VectorMap
@@ -62,7 +68,22 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
     />
   {
     countryClicked.length > 0 ?
-      <PopAgeTable country={countryClicked} />
+        countryClicked !== 'Greenland' && countryClicked !== 'Venezuela' &&
+        countryClicked !== 'Bolivia' && countryClicked !== 'Iran' &&
+        countryClicked !== 'Egypt' && countryClicked !== 'Tanzania' &&
+        countryClicked !== 'Yemen' && countryClicked !== 'Syria' &&
+        countryClicked !== 'Congo, the Democratic Republic of the' &&
+        countryClicked !== "Côte d'Ivoire" &&
+        countryClicked !== "Korea" &&
+        countryClicked !== "Korea, Democratic People's Republic of" &&
+        countryClicked !== "Vietnam" &&
+        countryClicked !== "Lao People's Democratic Republic" &&
+        countryClicked !== "Moldova" &&
+        countryClicked !== "Mocedonia" &&
+        countryClicked !== "Netherlands"
+        ?
+        <PopAgeTable country={countryClicked} />
+        : <h2 style={styles.noData}>No data for {countryClicked}</h2>
       : null
   }
 

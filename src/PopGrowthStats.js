@@ -162,8 +162,8 @@ class PopGrowthStats extends React.Component {
         display: "grid",
         gridTemplateColumns: "auto auto auto auto auto",
         //gridGap: "10px",
-        //border: '1px #000 solid',
-        width: "80%",
+        // border: '1px #000 solid',
+        width: "60%",
         marginLeft: "auto",
         marginRight: "auto",
         //margin: "100px 30px",
@@ -198,29 +198,28 @@ class PopGrowthStats extends React.Component {
         borderBottom: '1px #000 solid',
         cursor: 'pointer',
       },
-      div: {
-        border: '1px #000 solid',
+      topDiv: {
+        // border: '1px #000 solid',
+        //borderRadius: '5px',
         padding: '15px',
         width: "70%",
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: '50px',
+        textAlign: 'center',
       },
       span: {
-        //border: '1px #000 solid',
         padding: '15px',
         marginLeft: '8px',
         fontWeight: '900',
-        //backgroundColor: 'red',
         color: 'red',
-
       }
     }
 
     return (
       <div>
 
-        <div style={styles.div}>
+        <div style={styles.topDiv}>
           Our current world's population growth is
           <span style={styles.span}>{this.state.reducedDaily}</span> people per day,
           <span style={styles.span}>{Math.floor(this.state.reducedDaily * 7)}</span> per week,

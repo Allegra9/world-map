@@ -165,27 +165,43 @@ class PopGrowthChart extends Component {
 
   render() {
     const styles = {       // style={styles.container}
+      table: {
+        border: '1px #000 solid',
+        padding: '5%',
+        marginLeft: '5%',
+        marginRight: '5%',
+        display: 'grid',
+        gridTemplateColumns: 'auto auto',
+        paddingRight: '5%',
+      },
       chart: {
-        height: '400px',
-        width: "80%",
-        //border: '1px #000 solid',
-        margin: 50,
-        padding: 70,
+        display: 'inline-block',
+        margin: '0 auto',
+      },
+      h2: {
+        textAlign: 'center',
+        gridColumnStart: '1',
+        gridColumnEnd: '3',
+      },
+      select: {
+        gridColumnStart: '1',
+        gridColumnEnd: '3',
+        width: '50%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
       },
 
     }
 
-    //console.log(this.props.growthDaily)
-
     //  isMulti={true}
 
     return (
-      <div style={styles.chart}>
-
+      <div>
       {
         this.props.selectedCountry && !this.state.loading ?
 
-        <div>
+      <div style={styles.table}>
+        <div style={styles.select}>
           <Select
             value={this.state.selectedOption}
             onChange={this.handleChange}
@@ -193,42 +209,48 @@ class PopGrowthChart extends Component {
             placeholder='Select a country...'
             isSearchable={true}
           />
+        </div>
 
-          <h2>Charts for {this.props.selectedCountry}:</h2>
+        <h2 style={styles.h2}>Charts for {this.props.selectedCountry}:</h2>
 
-          Population growth (millions)
+        <div style={styles.chart} class="chart">
+          <h4>Population growth (millions)</h4>
           <LineChart
             axes
-            xTicks={5}
+            xTicks={6}
             yTicks={10}
             grid
             verticalGrid
             interpolate={'cardinal'}
             lineColors={['red', 'green']}
-            width={700}
+            width={580}
             height={350}
             data={[this.state.totalPopChartData]}
           />
+        </div>
 
-        Females and males (millions)
+        <div style={styles.chart} class="chart">
+          <h4>Females and males (millions)</h4>
           <LineChart
+            style={styles.chart}
             axes
-            xTicks={5}
+            xTicks={6}
             yTicks={10}
             grid
             verticalGrid
             interpolate={'cardinal'}
             lineColors={['blue', 'red']}
-            width={700}
+            width={580}
             height={350}
             data={[this.state.totalMalesChartData, this.state.totalFemalesChartData]}
           />
         </div>
-      : <h1>LOADING...</h1>
+      </div>  //select
 
+      : <h1>LOADING...</h1>
       }
       </div>
-    );
+    )
   }
 }
 
@@ -249,13 +271,6 @@ export default PopGrowthChart
 
 
 //   data={[data, data2, data3]}
-
-
-// const options = [
-//   { value: 'chocolate', label: 'Chocolate' },
-//   { value: 'strawberry', label: 'Strawberry' },
-//   { value: 'vanilla', label: 'Vanilla' }
-// ];
 
 
 // {1960: 2748343}
@@ -294,102 +309,3 @@ export default PopGrowthChart
 // componentDidMount() {
 //   //this.makeDataXnYfromProps()
 // }
-
-
-
-// <InterpolationSelect
-//   currentValue={this.state.interpolation}
-//   values={this.state.polar ? polarInterpolations : cartesianInterpolations }
-//   onChange={(event) => this.setState({ interpolation: event.target.value })}
-// />
-// <input
-//   type="checkbox"
-//   id="polar"
-//   value={this.state.polar}
-//   onChange={
-//     (event) => this.setState({
-//       polar: event.target.checked,
-//       interpolation: "linear"
-//     })
-//   }
-//   style={{ marginLeft: 25, marginRight: 5 }}
-// />
-// <label htmlFor="polar">polar</label>
-// <VictoryChart polar={this.state.polar} height={390} width={1500}>
-//   <VictoryLine
-//     interpolation={this.state.interpolation} data={data}
-//     style={{ data: { stroke: "#c43a31" } }}
-//   />
-// <VictoryScatter data={data}
-//     size={5}
-//     style={{ data: { fill: "#c43a31" } }}
-//   />
-//
-//   <VictoryLine
-//     interpolation={this.state.interpolation} data={data2}
-//     style={{ data: { stroke: "#c43a31" } }}
-//   />
-// <VictoryScatter data={data2}
-//     size={5}
-//     style={{ data: { fill: "#c43a31" } }}
-//   />
-// </VictoryChart>
-
-// const cartesianInterpolations = [
-//   "basis",
-//   "bundle",
-//   "cardinal",
-//   "catmullRom",
-//   "linear",
-//   "monotoneX",
-//   "monotoneY",
-//   "natural",
-//   "step",
-//   "stepAfter",
-//   "stepBefore"
-// ];
-//
-// const polarInterpolations = [
-//   "basis",
-//   "cardinal",
-//   "catmullRom",
-//   "linear"
-// ];
-//
-// const InterpolationSelect = ({ currentValue, values, onChange }) => (
-//   <select onChange={onChange} value={currentValue} style={{ width: 75 }}>
-//     {values.map(
-//       (value) => <option value={value} key={value}>{value}</option>
-//     )}
-//   </select>
-// );
-
-
-// const data = [
-//   { x: 1960, y: 0 },
-//   { x: 1970, y: 2000000 },
-//   { x: 1980, y: 100 },
-//   { x: 1990, y: 44 },
-//   { x: 2000, y: 33 },
-//   { x: 2010, y: 55 }
-// ];
-//
-// const data2 = [
-//   {x: 1960, y: 2748343},
-//   {x: 1970, y: 3100143},
-//   {x: 1980, y: 3380306},
-//   {x: 1990, y: 3697393},
-//   {x: 2000, y: 3486373},
-//   {x: 2010, y: 3122835},
-//   {x: 2020, y: 2817402}
-// ];
-//
-// const data3 = [
-//   {x: 1960, y: 2743},
-//   {x: 1970, y: 31043},
-//   {x: 1980, y: 33806},
-//   {x: 1990, y: 369703},
-//   {x: 2000, y: 347773},
-//   {x: 2010, y: 3135},
-//   {x: 2020, y: 28172}
-// ];

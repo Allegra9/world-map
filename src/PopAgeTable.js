@@ -109,13 +109,6 @@ class PopAgeTable extends Component {
         display: 'inline-block',
         margin: '0 auto',
       },
-      pie2: {
-        display: 'inline',
-        position: 'absolute',
-        marginTop: '-380px',
-        marginLeft: '450px',
-        width: '400px',
-      },
       h2: {
         textAlign: 'center',
         gridColumnStart: '1',
@@ -138,9 +131,9 @@ class PopAgeTable extends Component {
 
         <div style={styles.pie} class="pie">
           <h4>2050 (projected):</h4>
-          <PieChart stype={styles.pie}
+          <PieChart
            labels
-           size={300}
+           size={301}
            innerHoleSize={100}
            data={this.state.data2050}
           />

@@ -36,4 +36,21 @@
     grid-column-start: 1;
     grid-column-end: 3;
   }
+
+  .chart {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+@media (max-width: 1260px) {
+  /* .pie {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  } */
+
+  .chart {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }

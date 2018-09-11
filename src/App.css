@@ -26,3 +26,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* .chart-table {
+  grid-template-columns: auto auto;
+} */
+
+@media (max-width: 840px) {
+  .pie {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}

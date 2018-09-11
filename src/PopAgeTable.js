@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { PieChart } from 'react-easy-chart'
 
 import './App.css';
-
-// import { Grid, Row, Col } from 'react-bootstrap';
+//import { Grid, Row, Col } from 'react-bootstrap';
 
 class PopAgeTable extends Component {
 
@@ -66,7 +65,6 @@ class PopAgeTable extends Component {
         data2050: data
       }, () => console.log(this.state.data2050))
     }
-
   }
 
   fetchAgeData = (year="2018", country="Lithuania") => {
@@ -74,7 +72,6 @@ class PopAgeTable extends Component {
     .then(res => res.json())
     .then(data => this.getData(year, data))
     //.catch(error => console.log(error))
-
     // .then(() => this.setState({loading: false}))
   }
 
@@ -82,13 +79,7 @@ class PopAgeTable extends Component {
     console.log('getSelectedCountriesData:', country)
     this.fetchAgeData(2018, country)
     this.fetchAgeData(2050, country)
-    // this.setState({
-    //   data: this.fetchAgeData(2018, country),
-    //   data2050: this.fetchAgeData(2050, country),
-    // }, () => console.log(this.state))
   }
-
-  // setState anytime this.props.country changes ?
 
   componentDidMount() {
     console.log("Country I'm fetching for: ", this.props.country)
@@ -105,21 +96,18 @@ class PopAgeTable extends Component {
   render() {
     const styles = {       // style={styles.container}
       table: {
-        height: '500px',
-        width: "72%",
         border: '1px #000 solid',
         marginTop: '100px',
         marginLeft: '5%',
+        marginRight: '5%',
         padding: '50px',
-        paddingLeft: '200px',
-        //display: 'inline',
+        display: 'grid',
+        gridTemplateColumns: 'auto auto',
+        overflow: 'auto'
       },
       pie: {
-        display: 'inline',
-        margin: '150px',
-        // marginLeft: '300px',
-        // paddingLeft: '300px',
-        width: '400px',
+        display: 'inline-block',
+        margin: '0 auto',
       },
       pie2: {
         display: 'inline',
@@ -130,47 +118,39 @@ class PopAgeTable extends Component {
       },
       h2: {
         textAlign: 'center',
-        marginLeft: '-180px',
-        marginBottom: '50px',
+        gridColumnStart: '1',
+        gridColumnEnd: '3'
       }
-
     }
 
     return (
       <div style={styles.table}>
         <h2 style={styles.h2}>{this.props.country} Age Dependency charts</h2>
-
-      <div style={styles.pie}>
-        <h4>2018 (estimated):</h4>
+        <div style={styles.pie} class="pie">
+          <h4>2018 (estimated):</h4>
           <PieChart
            labels
            size={300}
            innerHoleSize={100}
            data={this.state.data}
           />
-      </div>
+        </div>
 
-      <div style={styles.pie2}>
-        <h4>2050 (projected):</h4>
-          <PieChart
+        <div style={styles.pie} class="pie">
+          <h4>2050 (projected):</h4>
+          <PieChart stype={styles.pie}
            labels
-           size={301}
+           size={300}
            innerHoleSize={100}
            data={this.state.data2050}
-           style={styles.pie}
           />
-      </div>
-
+        </div>
       </div>
     )
   }
 }
 
 export default PopAgeTable
-
-// 2018:   pie-chart-c9f81a9cf0d6db6de6f3df49c03aa4379964eac9
-
-// 2050:  pie-chart-3e3e0fb2115ddeabe61e32464c63cade18f5e781
 
 // {
 //   "females": 1457841,

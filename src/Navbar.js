@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <div style={styles.nav}>
       <span>
-        <img src='https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif' style={styles.img}/>
+        <img src='https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif' style={styles.img} alt=""/>
       </span>
 
       <span style={styles.title} className="title">

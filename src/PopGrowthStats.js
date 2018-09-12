@@ -10,15 +10,12 @@ class PopGrowthStats extends React.Component {
     yearly: [],
     in10yrs: [],
     reducedDaily: null,
-    //selectedCountry: '',
   }
 
   getState = () => {
-    //this.sortedCountries()
-    //this.getSortedCountriesList()
     this.setState({
       countries: this.sortedCountries(),
-      daily: this.sortedProps(),    // this.props.growthDaily,
+      daily: this.sortedProps(),
       weekly: this.getWeekly(),
       yearly: this.getYearly(),
       in10yrs: this.get10Years(),
@@ -133,15 +130,10 @@ class PopGrowthStats extends React.Component {
   handleClick = (e) => {
     this.props.selectCountry(e.target.id)
     console.log(e.target.id)
-    // this.setState({
-    //   selectedCountry: e.target.id   // India
-    // })
   }
 
   render() {
 
-    //const countries = Object.keys(this.props.growthDaily)
-    //const countries = this.state.countries
     const countries = Object.values(this.state.countries)
     const daily = Object.values(this.state.daily)
     const weekly = Object.values(this.state.weekly)
@@ -161,30 +153,22 @@ class PopGrowthStats extends React.Component {
       gridContainer: {
         display: "grid",
         gridTemplateColumns: "auto auto auto auto auto",
-        //gridGap: "10px",
-        // border: '1px #000 solid',
         width: "60%",
         marginLeft: "auto",
         marginRight: "auto",
-        //margin: "100px 30px",
-        //marginTop: "100px",
       },
       countryColumn: {
-        //display: "flex",
         width: "300px",
         border: '1px #000 solid',
         margin: "50px 0",
-        //justifyContent: "space-around",
-        background: "rgb(34,195,45)",
+        //background: "rgb(34,195,45)",
         background: "linear-gradient(0deg, rgba(34,195,45,1) 13%, rgba(253,45,45,1) 100%)",
       },
       dataColumn: {
-        //display: "flex",
         width: "150px",
         border: '1px #000 solid',
         margin: "50px 0",
-        //justifyContent: "space-around",
-        background: "rgb(34,195,45)",
+        //background: "rgb(34,195,45)",
         background: "linear-gradient(0deg, rgba(34,195,45,1) 13%, rgba(253,45,45,1) 100%)",
       },
       ul: {
@@ -199,8 +183,6 @@ class PopGrowthStats extends React.Component {
         cursor: 'pointer',
       },
       topDiv: {
-        // border: '1px #000 solid',
-        //borderRadius: '5px',
         padding: '15px',
         width: "70%",
         marginLeft: "auto",
@@ -231,16 +213,11 @@ class PopGrowthStats extends React.Component {
           <ul style={styles.ul}>
             <li><h3>Country</h3></li>
             {
-              // let countriesFlags = worldCountries.map(country => country.flag)
-              // console.log(countriesFlags)
-
               countries.map(country =>
                 <li style={styles.liCountry}  id={country} onClick={this.handleClick}>
                    {this.getAFlag(country)} {country}
                 </li>
               )
-                // onClick={this.handleClick}   if I wanted to get a country onClick
-                // {this.getAFlag(country)}
             }
           </ul>
         </span>
@@ -293,21 +270,3 @@ class PopGrowthStats extends React.Component {
 }
 
 export default PopGrowthStats
-
-    //  <PopGrowthChart selectedCountry={this.state.selectedCountry}/>
-
-  // makeDataXnYfromProps = () => {
-  //   let data = []
-  //   //let coordsObj = {x, y}
-  //   let x;  let y;
-  //   Object.entries(this.props.data).forEach(([key, val]) => {
-  //     // coordsObj ={x: key,  y: val}
-  //     // console.log("iter", coordsObj)
-  //     data = [...data, {x: key,  y: val} ]    // {x: "Zimbabwe", y: 1039}
-  //   })
-  //   console.log(data)   //  [ {x: "Afghanistan", y: 2069}, {x: ..., y: ...} ]
-  //   //return data
-  //   this.setState({
-  //     data: data
-  //   })
-  // }

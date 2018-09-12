@@ -1,17 +1,9 @@
 import React from 'react';
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
-
 import PopAgeTable from './PopAgeTable'
 
 const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
-
-  //console.log(mapData)
-  //console.log(typeof (Object.values(mapData)[0])) //number
-
-  // scale: ["#468c53", "#db2b08"],
-  //scale: ["#5faf50", "#f94a18"],
-  // scale: ["#125b04", "#ff0000"],   dark
 
   const handleClick = (e, countryCode) => {
     console.log(countryCode)
@@ -68,19 +60,26 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
     />
   {
     countryClicked.length > 0 ?
-        countryClicked !== 'Greenland' && countryClicked !== 'Venezuela' &&
-        countryClicked !== 'Bolivia' && countryClicked !== 'Iran' &&
-        countryClicked !== 'Egypt' && countryClicked !== 'Tanzania' &&
-        countryClicked !== 'Yemen' && countryClicked !== 'Syria' &&
+        countryClicked !== 'Greenland' &&
+        countryClicked !== 'Venezuela, Bolivarian Republic of' &&
+        countryClicked !== 'Bolivia, Plurinational State of' &&
+        countryClicked !== 'Iran, Islamic Republic of' &&
+        countryClicked !== 'Egypt' &&
+        countryClicked !== 'Tanzania, United Republic of' &&
+        countryClicked !== 'Yemen' &&
+        countryClicked !== 'Syrian Arab Republic' &&
         countryClicked !== 'Congo, the Democratic Republic of the' &&
         countryClicked !== "Côte d'Ivoire" &&
-        countryClicked !== "Korea" &&
+        countryClicked !== "Korea, Republic of" &&
         countryClicked !== "Korea, Democratic People's Republic of" &&
-        countryClicked !== "Vietnam" &&
+        countryClicked !== "Viet Nam" &&
         countryClicked !== "Lao People's Democratic Republic" &&
-        countryClicked !== "Moldova" &&
-        countryClicked !== "Mocedonia" &&
-        countryClicked !== "Netherlands"
+        countryClicked !== "Moldova, Republic of" &&
+        countryClicked !== "Macedonia, the Former Yugoslav Republic of" &&
+        countryClicked !== "Netherlands" &&
+        countryClicked !== "Taiwan, Province of China" &&
+        countryClicked !== "Slovakia" &&
+        countryClicked !== "Kosovo"
         ?
         <PopAgeTable country={countryClicked} />
         : <h2 style={styles.noData}>No data for {countryClicked}</h2>
@@ -92,7 +91,6 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
 }
 
 export default PopGrowthMap;
-
 
 //import worldCountries from 'world-countries' //npm i world-countries
 //let worldCountries = require("world-countries")  //npm i world-countries
@@ -119,54 +117,6 @@ export default PopGrowthMap;
 //
 // let countriesFlags = worldCountries.map(country => country.flag)
 // console.log(countriesFlags)
-
-
-// let mapData = {
-//   AU: 5000,  //cca2 code here ? https://www.npmjs.com/package/world-countries;
-//   BR: 0,
-//   CA: 0,
-//   DE: 1300,
-//   FR: 540,
-//   GB: 690,
-//   GE: 200,
-//   IN: 20,
-//   RO: 600,
-//   RU: 30,
-//   US: 0,
-//   AT: 20000,
-//   CN: 10,
-//   IN: 10,
-//   SA: 10,
-//   RS: 10,
-//   BT: 10,
-//   EG: 10,
-//
-//   SE: 0,
-//   FI: 0,
-//   ES: 0,
-//   NZ: 0,
-//   BR: 0,
-//   FR: 0,
-//   PR: 0,
-
-//   US: 2,
-//   US: -10,
-//   LU: -10,
-//   PL: -10,
-//   CZ: -10,
-//   HR: -10,
-//   RU: -10,
-//
-//};
-
-// console.log(mapData)
-// console.log(countriesCCa2[67])
-// console.log(countriesNames[42])
-// console.log(countriesFlags[42])
-
-// let obj = {
-//     [countriesCCa2[7]]: 1000  // UAE
-// }
 
 //ES6:
 // Object.keys(myObj).forEach(key => {

@@ -1,15 +1,13 @@
 import React from 'react';
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
+//import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
 import PopGrowthStats from './PopGrowthStats'
 import PopGrowthChart from './PopGrowthChart'
-
-//import Button from 'components/CustomButton/CustomButton.jsx';
-import { Button } from 'react-bootstrap';
+import './App.css';
 
 //not using this here yet:
-import worldCountries from 'world-countries' //npm i world-countries
+//import worldCountries from 'world-countries' //npm i world-countries
 
 const countries = require('country-list')();
 
@@ -24,17 +22,22 @@ class PopGrowthData extends React.Component {
   state = {
     countryDataCodes: {},     // {AF: 2069, AL: 22, ...}
     countryDataNames: {},     // {Algeria: 1790, ...}
-    //buttonClicked: false,
     selectedCountry: '',
     countryClickedOnMap: '',
   }
   //   {Canada: { total_population: [{...},{...}] } }
 
   countryClickOnMap = (countryCode) => {
-    let country = countries.getName(countryCode)
-    this.setState({
-      countryClickedOnMap: country
-    }, () => console.log(this.state.countryClickedOnMap) )
+    if (countryCode !== 'XK'){
+      let country = countries.getName(countryCode)
+      this.setState({
+        countryClickedOnMap: country
+      }, () => console.log(this.state.countryClickedOnMap) )
+    }else {
+      this.setState({
+        countryClickedOnMap: 'Kosovo'
+      }, () => console.log(this.state.countryClickedOnMap) )
+    }
   }
 
   selectCountry = (country) => {
@@ -153,20 +156,6 @@ class PopGrowthData extends React.Component {
     div: {
       marginTop: '100px',
     },
-    btn: {
-      padding: '1%',
-      border: 'none',
-    //  marginLeft:
-      // marginLeft: 'auto',
-      // marginRight: 'auto',
-      width: '20%',
-      cursor: 'pointer',
-      fontSize: '1.3em',
-      textDecoration: 'underline',
-      color: 'pink',
-
-    }
-
   }
 
   return (
@@ -202,7 +191,7 @@ class PopGrowthData extends React.Component {
             }
           </div>
 
-        : 
+        :
         <h1>LOADING...</h1>
       }
     </div>
@@ -237,7 +226,6 @@ export default PopGrowthData
 //     val['total_population'][0].population );
 //   })
 // )
-
 
 //   this.setState({
 //     populationGrowth: [...this.state.populationGrowth, data["total_population"][1].population - data["total_population"][0].population]

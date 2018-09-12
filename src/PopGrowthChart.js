@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { LineChart } from 'react-easy-chart'
 // npm i react-easy-charts --save
 
-// import PopAgeTable from './PopAgeTable'
 import Select from 'react-select'
 
 let totalPopChartData = []
@@ -14,13 +13,10 @@ class PopGrowthChart extends Component {
   state = {
       interpolation: "linear",
       polar: false,
-      //data: [],      //  [ {x: "Afghanistan", y: 2069}, {x: ..., y: ...} ]
-      //selectedCountry: "Germany",
       totalPopChartData: [],
       totalMalesChartData: [],
       totalFemalesChartData: [],
-      //data: [],     // data={ [data, data2, data3] }   // each data is an array
-      selectedOption: '',    // added
+      selectedOption: '',
       loading: true,
   }
 
@@ -150,18 +146,12 @@ class PopGrowthChart extends Component {
     this.setState({
       loading: true
     }, () => this.getSelectedCountriesChartData(Object.values(selectedOption)[0]))
-
     //console.log(Object.values(selectedOption)[0])
-
     // this.setState({
     //   selectedOption: Object.values(selectedOption)[0]
     // }, () => console.log(`Option selected:`, this.state.selectedOption)  )
     // console.log(`Option selected:`, selectedOption)
   }
-
-  // getGlobe = () => {
-  //   document.getElementById('globe').append('body')
-  // }
 
   render() {
     const styles = {       // style={styles.container}
@@ -258,57 +248,3 @@ class PopGrowthChart extends Component {
 }
 
 export default PopGrowthChart
-
-
-//  <h1>LOADING...</h1>
-
-
-// <Select
-//   value={this.state.selectedOption}
-//   onChange={this.handleChange}
-//   options={this.getCountries()}
-//   placeholder='Select a country...'
-//   isMulti={true}         can do mulitple select options
-//   isSearchable={true}    will search if country name includes the input
-// />
-
-
-//   data={[data, data2, data3]}
-
-
-// {1960: 2748343}
-// {1970: 3100143}
-// {1980: 3380306}
-// {1990: 3697393}
-// {2000: 3486373}
-// {2010: 3122835}
-// {2018: 2817402}
-
-// new Date().getFullYear()    // current year
-
-
-// state = {
-//     interpolation: "linear",
-//     polar: false,
-//     //data: [],      //  [ {x: "Afghanistan", y: 2069}, {x: ..., y: ...} ]
-// }
-//
-// // makeDataXnYfromProps = () => {
-// //   let data = []
-// //   //let coordsObj = {x, y}
-// //   let x;  let y;
-// //   Object.entries(this.props.data).forEach(([key, val]) => {
-// //     // coordsObj ={x: key,  y: val}
-// //     // console.log("iter", coordsObj)
-// //     data = [...data, {x: key,  y: val} ]    // {x: "Zimbabwe", y: 1039}
-// //   })
-// //   console.log(data)   //  [ {x: "Afghanistan", y: 2069}, {x: ..., y: ...} ]
-// //   //return data
-// //   this.setState({
-// //     data: data
-// //   })
-// // }
-//
-// componentDidMount() {
-//   //this.makeDataXnYfromProps()
-// }

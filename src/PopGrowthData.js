@@ -192,7 +192,15 @@ class PopGrowthData extends React.Component {
           </div>
 
         :
-        <h1>LOADING...</h1>
+        <div className="spinner-wrapper">
+          <div className="spinner">
+            <span className="fragment"></span>
+            <span className="fragment"></span>
+            <span className="fragment"></span>
+            loading
+          </div>
+        </div>
+
       }
     </div>
   )

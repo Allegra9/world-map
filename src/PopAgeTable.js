@@ -95,6 +95,7 @@ class PopAgeTable extends Component {
     const styles = {       // style={styles.container}
       table: {
         border: '1px #000 solid',
+        borderRadius: '10px',
         marginTop: '100px',
         marginLeft: '5%',
         marginRight: '5%',

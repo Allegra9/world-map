@@ -78,7 +78,7 @@ class PopGrowthStats extends React.Component {
   getWeekly = () => {
     let obj =  this.sortedProps()
     Object.entries(obj).forEach(([key, val]) => {
-      obj[key] = val * 10
+      obj[key] = val * 7
     })
     return obj
   }
@@ -161,6 +161,7 @@ class PopGrowthStats extends React.Component {
         width: "300px",
         border: '1px #000 solid',
         margin: "50px 0",
+        borderRadius: '10px 0 0 10px',
         //background: "rgb(34,195,45)",
         background: "linear-gradient(0deg, rgba(34,195,45,1) 13%, rgba(253,45,45,1) 100%)",
       },
@@ -171,7 +172,20 @@ class PopGrowthStats extends React.Component {
         //background: "rgb(34,195,45)",
         background: "linear-gradient(0deg, rgba(34,195,45,1) 13%, rgba(253,45,45,1) 100%)",
       },
+      dataColumn4: {
+        width: "150px",
+        border: '1px #000 solid',
+        margin: "50px 0",
+        borderRadius: '0 10px 10px 0',
+        //background: "rgb(34,195,45)",
+        background: "linear-gradient(0deg, rgba(34,195,45,1) 13%, rgba(253,45,45,1) 100%)",
+      },
       ul: {
+        listStyle: "none",
+        textAlign: "right",
+        paddingRight: "20px",
+      },
+      ulCountries: {
         listStyle: "none",
       },
       li: {
@@ -184,11 +198,12 @@ class PopGrowthStats extends React.Component {
       },
       topDiv: {
         padding: '15px',
-        width: "70%",
+        width: "65%",
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: '50px',
         textAlign: 'center',
+        borderBottom: '1px #000 solid',
       },
       span: {
         padding: '15px',
@@ -202,19 +217,21 @@ class PopGrowthStats extends React.Component {
       <div>
 
         <div style={styles.topDiv}>
-          Our current world's population growth is
-          <span style={styles.span}>{this.state.reducedDaily}</span> people per day,
-          <span style={styles.span}>{Math.floor(this.state.reducedDaily * 7)}</span> per week,
-          <span style={styles.span}>{Math.floor(this.state.reducedDaily * 360)}</span> per year.
+          <p className="subtitle">
+            Current world's population growth is
+            <span style={styles.span}>{this.state.reducedDaily}</span> people per day,
+            <span style={styles.span}>{Math.floor(this.state.reducedDaily * 7)}</span> per week,
+            <span style={styles.span}>{Math.floor(this.state.reducedDaily * 360)}</span> per year.
+          </p>
         </div>
 
       <div style={styles.gridContainer}>
         <span style={styles.countryColumn}>
-          <ul style={styles.ul}>
-            <li><h3>Country</h3></li>
+          <ul style={styles.ulCountries}>
+            <li><h3 className="subtitle">Country</h3></li>
             {
               countries.map(country =>
-                <li style={styles.liCountry}  id={country} onClick={this.handleClick}>
+                <li style={styles.liCountry} id={country} onClick={this.handleClick} className="subtitle-link">
                    {this.getAFlag(country)} {country}
                 </li>
               )
@@ -224,40 +241,40 @@ class PopGrowthStats extends React.Component {
 
         <span style={styles.dataColumn}>
           <ul style={styles.ul}>
-            <li><h3>Daily</h3></li>
+            <li><h3 className="subtitle">Daily</h3></li>
             {
               daily.map(daily =>
-                <li style={styles.li}>{daily}</li>)
+                <li style={styles.li}>{daily.toLocaleString()}</li>)
             }
           </ul>
         </span>
 
         <span style={styles.dataColumn}>
           <ul style={styles.ul}>
-            <li><h3>Weekly</h3></li>
+            <li><h3 className="subtitle">Weekly</h3></li>
             {
               weekly.map(weekly =>
-                <li style={styles.li}>{weekly}</li>)
+                <li style={styles.li}>{weekly.toLocaleString()}</li>)
             }
           </ul>
         </span>
 
         <span style={styles.dataColumn}>
           <ul style={styles.ul}>
-            <li><h3>Yearly</h3></li>
+            <li><h3 className="subtitle">Yearly</h3></li>
             {
               yearly.map(yearly =>
-                <li style={styles.li}>{yearly}</li>)
+                <li style={styles.li}>{yearly.toLocaleString()}</li>)
             }
           </ul>
         </span>
 
-        <span style={styles.dataColumn}>
+        <span style={styles.dataColumn4}>
           <ul style={styles.ul}>
-            <li><h3>10 years</h3></li>
+            <li><h3 className="subtitle">10 years</h3></li>
             {
               in10yrs.map(tenYrs =>
-                <li style={styles.li}>{tenYrs}</li>)
+                <li style={styles.li}>{tenYrs.toLocaleString()}</li>)
             }
           </ul>
         </span>
@@ -265,7 +282,6 @@ class PopGrowthStats extends React.Component {
 
     </div>
     )
-
   }
 }
 

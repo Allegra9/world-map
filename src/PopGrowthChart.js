@@ -157,6 +157,7 @@ class PopGrowthChart extends Component {
     const styles = {       // style={styles.container}
       table: {
         border: '1px #000 solid',
+        borderRadius: '10px',
         padding: '5%',
         marginLeft: '5%',
         marginRight: '5%',
@@ -207,7 +208,7 @@ class PopGrowthChart extends Component {
         <h2 style={styles.h2}>Charts for {this.props.selectedCountry}:</h2>
 
         <div style={styles.chart} class="chart">
-          <h4 style={styles.h4}>Population growth (millions):</h4>
+          <h4 style={styles.h4}>Total population (millions):</h4>
           <LineChart
             axes
             xTicks={6}
@@ -240,7 +241,15 @@ class PopGrowthChart extends Component {
         </div>
       </div>  //select
 
-      : <h1>LOADING...</h1>
+      : <div className="spinner-wrapper">
+        <div className="spinner">
+          <span className="fragment"></span>
+          <span className="fragment"></span>
+          <span className="fragment"></span>
+          loading
+        </div>
+      </div>
+
       }
       </div>
     )

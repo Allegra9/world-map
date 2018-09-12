@@ -125,3 +125,71 @@ footer {
 .subtitle {
   font-family: 'Cinzel', serif;
 }
+
+.subtitle-link {
+  font-family: 'Cinzel', serif;
+}
+
+.subtitle-link:hover {
+  color: pink;
+  /* background-color: transparent; */
+  /* text-decoration: underline; */
+}
+
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+html,
+body {
+  height: 100%;
+}
+
+/* body {
+  background-color: #1d1e22;
+} */
+
+.spinner-wrapper {
+  /* position: fixed; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner-wrapper .spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-family: "Oswald";
+  font-size: 1rem;
+  color: gainsboro;
+}
+.spinner-wrapper .spinner .fragment {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 0.25rem solid transparent;
+  border-top: 0.25rem solid #8dc63f;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: rotate 2.5s linear infinite;
+}
+.spinner-wrapper .spinner .fragment:first-of-type {
+  animation: rotate 1.5s ease-in-out infinite;
+  border-top-color: #00aeef;
+}
+.spinner-wrapper .spinner .fragment:last-of-type {
+  animation: rotate 2s ease-in-out infinite;
+  border-top-color: #ec008c;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { PieChart } from 'react-easy-chart'
-
 import './App.css';
-//import { Grid, Row, Col } from 'react-bootstrap';
 
 class PopAgeTable extends Component {
 

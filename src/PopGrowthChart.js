@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { LineChart } from 'react-easy-chart'
 // npm i react-easy-charts --save
-
 import Select from 'react-select'
 
 let totalPopChartData = []

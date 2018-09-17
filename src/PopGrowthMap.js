@@ -24,7 +24,7 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
       zoomOnScroll={false}
       containerStyle={{
         width: "100%",
-        height: "420px"
+        height: "520px"
       }}
       onRegionClick={handleClick}
       containerClassName="map"
@@ -47,7 +47,6 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
         }
       }}
       regionsSelectable={true}
-      markerSelected={true}
       series={{
         regions: [
           {

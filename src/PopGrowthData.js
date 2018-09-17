@@ -1,15 +1,11 @@
 import React from 'react';
-// react plugin for creating vector maps
-//import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
 import PopGrowthMap from './PopGrowthMap'
 import PopGrowthStats from './PopGrowthStats'
 import PopGrowthChart from './PopGrowthChart'
 import './App.css';
 
-//not using this here yet:
-//import worldCountries from 'world-countries' //npm i world-countries
-
 const countries = require('country-list')();
+// npm i country-list
 
 // console.log(countries.getName('IS'));  // Iceland
 // console.log(countries.getCode('Norway')); // IS
@@ -49,6 +45,7 @@ class PopGrowthData extends React.Component {
   //get all countries:
   getCountryNamesArray = () => {
     const countriesArray = []
+    console.log(countriesNCodes)
     for (let country of countriesNCodes) {
       countriesArray.push(country.name)
     }
@@ -85,7 +82,7 @@ class PopGrowthData extends React.Component {
     this.getAllData(this.getCountryNamesArray())
   }
 
-  //reformating the data for the state, to be passed as props:  code: data
+  //reformating the data for the state, to be passed as props:  {code: data}
   getCountryDataCodesObject = (finalData) => {
     //console.log(finalData)
     let countryCodeGrowthData = {}
@@ -142,17 +139,11 @@ class PopGrowthData extends React.Component {
     this.setState({
       selectedCountry: ''
     }, () => console.log(this.state.selectedCountry))
-    //console.log(this.state.buttonClicked)
   }
 
   render() {
 
-  //console.log(this.state.countryDataCodes)
-  //before we pass the state as props here, I need to get the lowest negative value
-  //and increase every value by that number  // did 1000 just in case
-  //so that it becomes zero and all others keep the proportion
-
-  const styles = {       // style={styles.container}
+  const styles = {
     div: {
       marginTop: '100px',
     },

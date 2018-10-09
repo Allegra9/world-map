@@ -1,13 +1,20 @@
-React project:
-“Wrld" Population data visualisations. 
+## “Wrld" Population data visualisations
+
 Utilised React map and charts libraries to express demographic data from World Population API and visualise data trends.
 
-To run: 
-npm install 
+## How to run: 
 
-npm start => localhost:3000 (Ctrl + C to stop)
+```npm install```
 
-Demo video: https://www.youtube.com/watch?v=tU9rooXzI4Q&index=1&list=UUZage3esBsP8jJGdT1k2n5A
+```npm start```  => localhost:3000 (Ctrl + C to stop)
+
+
+## Demo video: 
+
+https://www.youtube.com/watch?v=tU9rooXzI4Q&index=1&list=UUZage3esBsP8jJGdT1k2n5A
+
+
+************************************
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

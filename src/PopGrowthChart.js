@@ -183,7 +183,6 @@ class PopGrowthChart extends Component {
         marginLeft: 'auto',
         marginRight: 'auto',
       },
-
     }
 
     //  isMulti={true}
@@ -206,7 +205,7 @@ class PopGrowthChart extends Component {
 
         <h2 style={styles.h2}>Charts for {this.props.selectedCountry}:</h2>
 
-        <div style={styles.chart} class="chart">
+        <div style={styles.chart} className="chart">
           <h4 style={styles.h4}>Total population (millions):</h4>
           <LineChart
             axes
@@ -222,7 +221,7 @@ class PopGrowthChart extends Component {
           />
         </div>
 
-        <div style={styles.chart} class="chart">
+        <div style={styles.chart} className="chart">
           <h4 style={styles.h4}>Females and males (millions):</h4>
           <LineChart
             style={styles.chart}
@@ -241,13 +240,13 @@ class PopGrowthChart extends Component {
       </div>  //select
 
       : <div className="spinner-wrapper">
-        <div className="spinner">
-          <span className="fragment"></span>
-          <span className="fragment"></span>
-          <span className="fragment"></span>
-          loading
+          <div className="spinner">
+            <span className="fragment"></span>
+            <span className="fragment"></span>
+            <span className="fragment"></span>
+            loading
+          </div>
         </div>
-      </div>
 
       }
       </div>

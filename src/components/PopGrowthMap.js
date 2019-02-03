@@ -1,73 +1,70 @@
-import React from 'react';
+import React from "react";
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";  // npm i react-jvectormap
-import PopAgeTable from './PopAgeTable'
+import { VectorMap } from "react-jvectormap"; // npm i react-jvectormap
+import PopAgeTable from "./PopAgeTable";
 
-const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
-
+const PopGrowthMap = ({ mapData, countryClick, countryClicked, ...props }) => {
   const handleClick = (e, countryCode) => {
-    console.log(countryCode)
-    countryClick(countryCode)
-  }
+    console.log(countryCode);
+    countryClick(countryCode);
+  };
 
   const styles = {
     noData: {
-      textAlign: 'center',
-    },
-  }
+      textAlign: "center"
+    }
+  };
 
   return (
     <div>
-    <VectorMap
-      map={"world_mill"}
-      backgroundColor="transparent"
-      zoomOnScroll={false}
-      containerStyle={{
-        width: "100%",
-        height: "520px"
-      }}
-      onRegionClick={handleClick}
-      containerClassName="map"
-      regionStyle={{
-        initial: {
-          fill: "#e4e4e4",
-          "fill-opacity": 0.9,
-          stroke: "none",
-          "stroke-width": 0,
-          "stroke-opacity": 0
-        },
-        hover: {
-          "fill-opacity": 0.8,
-          cursor: 'pointer'
-        },
-        selected: {
-          fill: '#2938bc'
-        },
-        selectedHover: {
-        }
-      }}
-      regionsSelectable={true}
-      series={{
-        regions: [
-          {
-            values: mapData,
-            scale: ["#146804", "#ff0000"],
-            normalizeFunction: "polynomial"
-          }
-        ]
-      }}
-    />
-  {
-    countryClicked.length > 0 ?
-        countryClicked !== 'Greenland' &&
-        countryClicked !== 'Venezuela, Bolivarian Republic of' &&
-        countryClicked !== 'Bolivia, Plurinational State of' &&
-        countryClicked !== 'Iran, Islamic Republic of' &&
-        countryClicked !== 'Egypt' &&
-        countryClicked !== 'Tanzania, United Republic of' &&
-        countryClicked !== 'Yemen' &&
-        countryClicked !== 'Syrian Arab Republic' &&
-        countryClicked !== 'Congo, the Democratic Republic of the' &&
+      <VectorMap
+        map={"world_mill"}
+        backgroundColor="transparent"
+        zoomOnScroll={false}
+        containerStyle={{
+          width: "100%",
+          height: "520px"
+        }}
+        onRegionClick={handleClick}
+        containerClassName="map"
+        regionStyle={{
+          initial: {
+            fill: "#e4e4e4",
+            "fill-opacity": 0.9,
+            stroke: "none",
+            "stroke-width": 0,
+            "stroke-opacity": 0
+          },
+          hover: {
+            "fill-opacity": 0.8,
+            cursor: "pointer"
+          },
+          selected: {
+            fill: "#2938bc"
+          },
+          selectedHover: {}
+        }}
+        regionsSelectable={true}
+        series={{
+          regions: [
+            {
+              values: mapData,
+              scale: ["#146804", "#ff0000"],
+              normalizeFunction: "polynomial"
+            }
+          ]
+        }}
+      />
+      {countryClicked.length > 0 ? (
+        countryClicked !== "Greenland" &&
+        countryClicked !== "Venezuela, Bolivarian Republic of" &&
+        countryClicked !== "Bolivia, Plurinational State of" &&
+        countryClicked !== "Iran, Islamic Republic of" &&
+        countryClicked !== "Egypt" &&
+        countryClicked !== "Tanzania, United Republic of" &&
+        countryClicked !== "Yemen" &&
+        countryClicked !== "Syrian Arab Republic" &&
+        countryClicked !== "Congo, the Democratic Republic of the" &&
         countryClicked !== "Côte d'Ivoire" &&
         countryClicked !== "Korea, Republic of" &&
         countryClicked !== "Korea, Democratic People's Republic of" &&
@@ -78,16 +75,15 @@ const PopGrowthMap = ({ ...props, mapData, countryClick, countryClicked }) => {
         countryClicked !== "Netherlands" &&
         countryClicked !== "Taiwan, Province of China" &&
         countryClicked !== "Slovakia" &&
-        countryClicked !== "Kosovo"
-        ?
-        <PopAgeTable country={countryClicked} />
-        : <h2 style={styles.noData}>No data for {countryClicked}</h2>
-      : null
-  }
-
+        countryClicked !== "Kosovo" ? (
+          <PopAgeTable country={countryClicked} />
+        ) : (
+          <h2 style={styles.noData}>No data for {countryClicked}</h2>
+        )
+      ) : null}
     </div>
   );
-}
+};
 
 export default PopGrowthMap;
 

@@ -83,12 +83,19 @@ class PopGrowthData extends Component {
           length--; //decrease
           if (length === 0) {
             //only set state when fetched for all the countries
-            finalData = finalData.filter(obj => Object.keys(obj).length !== 0); //get rid of empty objs
-            //return this.getCountryDataCodesObject(finalData)
-            this.setState({
-              countryDataCodes: this.getCountryDataCodesObject(finalData),
-              countryDataNames: this.getCountryDataNamesObject(finalData)
-            });
+            if (finalData) {
+              console.log(finalData);
+              finalData = finalData.filter(obj =>
+                obj !== undefined || obj !== null
+                  ? Object.keys(obj).length !== 0
+                  : console.log(obj)
+              ); //get rid of empty objs
+              //return this.getCountryDataCodesObject(finalData)
+              this.setState({
+                countryDataCodes: this.getCountryDataCodesObject(finalData),
+                countryDataNames: this.getCountryDataNamesObject(finalData)
+              });
+            }
           }
         });
     });

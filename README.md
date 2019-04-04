@@ -1,8 +1,10 @@
 ## “Wrld" Population data visualisations
 
-##4/4/19 update:
+## 4/4/19 update:
 
 Looks like my api endpoint http://api.population.io/ is no longer available. :( The sadness...
+
+But this is what it was about when it worked:
 
 Utilised React map and charts libraries to express demographic data from World Population API and visualise data trends.
 

@@ -1,13 +1,11 @@
 ## “Wrld" Population data visualisations
 
-## 4/4/19 update:
-
-Looks like my api endpoint http://api.population.io/ is no longer available. :( The sadness...
+Update: looks like my api endpoint http://api.population.io/ is no longer available. :( The sadness...
 
 But this is what it was about when it worked:
 
-World population growth data expressed in a wolrd map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine)), then a corresponding countries table with numbers of growth - daily, weekly, yearly, 10 years (sorted from highest to lowest). 
-Correspoding growth chart for each country, and clicking on a country on the map will show age dependecy pie chart (people in each age group). 
+World population growth data expressed in a world map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine)), then a corresponding countries table with numbers of growth - daily, and calculated weekly, yearly, 10 years (sorted from highest to lowest). 
+Corresponding growth chart for each country, and clicking on a country on the map will show age dependency pie chart (current and 10 years prediction). 
 
 ## Demo video: 
 

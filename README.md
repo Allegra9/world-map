@@ -6,7 +6,16 @@ Looks like my api endpoint http://api.population.io/ is no longer available. :( 
 
 But this is what it was about when it worked:
 
-Utilised React map and charts libraries to express demographic data from World Population API and visualise data trends.
+World population growth data expressed in a wolrd map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine)), then a corresponding countries table with numbers of growth - daily, weekly, yearly, 10 years (sorted from highest to lowest). 
+Correspoding growth chart for each country, and clicking on a country on the map will show age dependecy pie chart (people in each age group). 
+
+How I built this?
+
+Utilised React map and charts libraries for visualisation, and a lot of demographic data wrangling from World Population API. 
+
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/map.png"/>
+
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/chart.png"/>
 
 ## How to run: 
 

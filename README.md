@@ -9,6 +9,10 @@ But this is what it was about when it worked:
 World population growth data expressed in a wolrd map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine)), then a corresponding countries table with numbers of growth - daily, weekly, yearly, 10 years (sorted from highest to lowest). 
 Correspoding growth chart for each country, and clicking on a country on the map will show age dependecy pie chart (people in each age group). 
 
+## Demo video: 
+
+https://www.youtube.com/watch?v=tU9rooXzI4Q&index=1&list=UUZage3esBsP8jJGdT1k2n5A
+
 How I built this?
 
 Utilised React map and charts libraries for visualisation, and a lot of demographic data wrangling from World Population API. 
@@ -22,11 +26,6 @@ Utilised React map and charts libraries for visualisation, and a lot of demograp
 ```npm install```
 
 ```npm start```  => localhost:3000 (Ctrl + C to stop)
-
-
-## Demo video: 
-
-https://www.youtube.com/watch?v=tU9rooXzI4Q&index=1&list=UUZage3esBsP8jJGdT1k2n5A
 
 
 ************************************

@@ -71,7 +71,7 @@ class PopAgeTable extends Component {
   };
 
   fetchAgeData = (year = "2018", country = "Lithuania") => {
-    return fetch(`http://api.population.io/1.0/population/${year}/${country}/`)
+    return fetch(`http://54.72.28.201/1.0/population/${year}/${country}/`)
       .then(res => res.json())
       .then(data => this.getData(year, data));
     //.catch(error => console.log(error))

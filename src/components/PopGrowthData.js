@@ -140,9 +140,11 @@ class PopGrowthData extends Component {
     return countryCodeGrowthData;
   };
 
+  // http://54.72.28.201:80/1.0/countries
+  // http://api.population.io:80/1.0/population/
   fetchPopulationData = (country = "Lithuania") => {
     return fetch(
-      "http://api.population.io:80/1.0/population/" +
+      "http://54.72.28.201:80/1.0/population/" +
         `${country}/today-and-tomorrow/`
     )
       .then(res => {

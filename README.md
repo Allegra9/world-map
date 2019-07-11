@@ -1,10 +1,8 @@
 ## “Wrld" Population data visualisations
 
-Update: looks like my api endpoint http://api.population.io/ is no longer available. :( The sadness...
+What it's about:
 
-But this is what it was about when it worked:
-
-World population growth data expressed in a world map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine)), then a corresponding countries table with numbers of growth - daily, and calculated weekly, yearly, 10 years (sorted from highest to lowest). 
+World population growth data expressed in a world map (red - the highest growth (India, Nigeria, China), green - the lowest growth (Japan, Ukraine, Russia)), then a corresponding countries table with numbers of growth - daily, and calculated weekly, yearly, 10 years (sorted from highest to lowest). 
 Corresponding growth chart for each country, and clicking on a country on the map will show age dependency pie charts (2018 and 2050 prediction). 
 
 ## Demo video: 
@@ -15,9 +13,13 @@ How I built this?
 
 Utilised React map and charts libraries for visualisation, and a lot of demographic data wrangling from World Population API. 
 
-<img src="https://github.com/Allegra9/world-map/blob/master/src/images/map.png"/>
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/map2.png"/>
 
-<img src="https://github.com/Allegra9/world-map/blob/master/src/images/chart.png"/>
+Age dependency charts:
+
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/chart-japan.png"/>
+
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/chart-nigeria.png"/>
 
 ## How to run: 
 

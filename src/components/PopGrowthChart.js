@@ -22,7 +22,7 @@ class PopGrowthChart extends Component {
 
   fetchDecadesData = (year = "2018", country = "Lithuania") => {
     return fetch(
-      "http://api.population.io:80/1.0/population/" + `${year}/${country}/`
+      "http://54.72.28.201:80/1.0/population/" + `${year}/${country}/`
     )
       .then(res => res.json())
       .then(res => this.getReducedValueForEachYear(year, res))

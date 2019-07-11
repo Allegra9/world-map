@@ -13,7 +13,7 @@ How I built this?
 
 Utilised React map and charts libraries for visualisation, and a lot of demographic data wrangling from World Population API. 
 
-<img src="https://github.com/Allegra9/world-map/blob/master/src/images/map.png"/>
+<img src="https://github.com/Allegra9/world-map/blob/master/src/images/map2.png"/>
 
 Age dependency charts:
 

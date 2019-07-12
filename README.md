@@ -9,13 +9,11 @@ Corresponding growth chart for each country, and clicking on a country on the ma
 
 https://www.youtube.com/watch?v=tU9rooXzI4Q&index=1&list=UUZage3esBsP8jJGdT1k2n5A
 
-How I built this?
+How I built it?
 
-Utilised React map and charts libraries for visualisation, and a lot of demographic data wrangling from World Population API. 
+Utilised React map and charts libraries for data visualisation, and a lot of demographic data wrangling from the World Population API. 
 
 <img src="https://github.com/Allegra9/world-map/blob/master/src/images/map2.png"/>
-
-Age dependency charts:
 
 <img src="https://github.com/Allegra9/world-map/blob/master/src/images/chart-japan.png"/>
 

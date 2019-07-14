@@ -2,73 +2,69 @@ import React from "react";
 
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { styled } from "@emotion/styled";
+import styled from "@emotion/styled";
 
 const Navbar = () => {
-  const styles = {
-    nav: {
-      background: "#000",
-      color: "#d6d0b1",
-      height: "230px",
-      margin: "0 auto 100px 0",
-      textALign: "center"
-    },
-    title: {
-      fontSize: "6em",
-      padding: "40px 40px 40px 0px",
-      // paddingBottom: '40px',
-      // paddingTop: 0,
-      textAlign: "left",
-      marginTop: "-10px",
-      // border: 'solid 1px #000',
-      // border: 'solid 3px #fff',
-      position: "absolute"
-    },
-    subtitle: {
-      fontSize: "1em",
-      textAlign: "left",
-      paddingLeft: "200px"
-    },
-    img: {
-      height: "auto",
-      width: "250px",
-      marginTop: "20px"
-    },
-    w: {
-      fontSize: "1.4em"
-    }
-  };
-
   return (
-    <div style={styles.nav}>
-      <span style={styles.title} className="title">
-        <span style={styles.w}>W</span>
-      </span>
-      <span>
-        <img
-          src="https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif"
-          style={styles.img}
-          alt=""
-        />
-      </span>
-
-      <span style={styles.title} className="title">
-        rld
-      </span>
-      <div style={styles.subtitle} className="subtitle">
-        Data is the first step to sustainable world
-      </div>
-    </div>
+    <Container>
+      <Content>
+        <div>
+          <span css={title}>
+            <span>W</span>
+          </span>
+          <span>
+            <img
+              src="https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif"
+              css={img}
+              alt=""
+            />
+          </span>
+          <span css={title}>
+            <span css={rld}>rld</span>
+          </span>
+        </div>
+        <div css={subtitle}>Data is the first step to sustainable world</div>
+      </Content>
+    </Container>
   );
 };
 
 export default Navbar;
 
-// <img src='http://www.lunawebs.com/clients/teleplan/globes/golden_globe_spinning_lg_nwm.gif' style={styles.img}/>
+const skinColor = "#d6d0b1";
+const fontFamily = "Cinzel, serif";
+const contentCenter = "display: flex; justify-content: center;";
 
-//  http://www.lunawebs.com/clients/teleplan/globes/golden_globe_spinning_lg_nwm.gif
+const Container = styled.div`
+  background: #000;
+  color: ${skinColor};
+  font-family: ${fontFamily};
+  height: 230px;
+  margin-bottom: 100px;
+  ${contentCenter};
+`;
 
-//    https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif
-//    https://i.gifer.com/AYvD.gif
+const Content = styled.div``;
 
-// <span style={styles.subtitle}>Data is the first step to sustainable world</span>
+const title = css`
+  font-size: 8em;
+  padding: 40px 40px 40px 0px;
+  text-align: left;
+  margin-top: -10px;
+  position: absolute;
+`;
+
+const rld = css`
+  margin-left: -30px;
+`;
+const subtitle = css`
+  font-size: 1em;
+  text-align: left;
+  padding-left: 200px;
+`;
+const img = css`
+  width: 250px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 90px;
+`;

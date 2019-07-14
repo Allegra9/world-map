@@ -1,57 +1,68 @@
-import React from 'react';
+import React from "react";
+
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { styled } from "@emotion/styled";
 
 const Navbar = () => {
   const styles = {
     nav: {
-      background: '#000',
-      color: '#d6d0b1',
-      height: '230px',
-      margin: '0 auto 100px 0',
+      background: "#000",
+      color: "#d6d0b1",
+      height: "230px",
+      margin: "0 auto 100px 0",
+      textALign: "center"
     },
     title: {
-      fontSize: '6em',
-      padding: '40px 40px 40px 0px',
+      fontSize: "6em",
+      padding: "40px 40px 40px 0px",
       // paddingBottom: '40px',
       // paddingTop: 0,
-      textAlign: 'left',
-      marginTop: '-10px',
+      textAlign: "left",
+      marginTop: "-10px",
       // border: 'solid 1px #000',
       // border: 'solid 3px #fff',
-      position: 'absolute',
+      position: "absolute"
     },
     subtitle: {
-      fontSize: '1em',
-      textAlign: 'left',
-      paddingLeft: '200px',
+      fontSize: "1em",
+      textAlign: "left",
+      paddingLeft: "200px"
     },
     img: {
-      height: 'auto',
-      width: '250px',
-      marginTop: '20px',
+      height: "auto",
+      width: "250px",
+      marginTop: "20px"
     },
     w: {
-      fontSize: '1.4em',
+      fontSize: "1.4em"
     }
-  }
+  };
 
   return (
     <div style={styles.nav}>
+      <span style={styles.title} className="title">
+        <span style={styles.w}>W</span>
+      </span>
       <span>
-        <img src='https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif' style={styles.img} alt=""/>
+        <img
+          src="https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/d8f2a26e920f903d68359038bd4cf588/large.gif"
+          style={styles.img}
+          alt=""
+        />
       </span>
 
       <span style={styles.title} className="title">
-        <span style={styles.w}>W</span>rld
+        rld
       </span>
       <div style={styles.subtitle} className="subtitle">
         Data is the first step to sustainable world
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
 
 // <img src='http://www.lunawebs.com/clients/teleplan/globes/golden_globe_spinning_lg_nwm.gif' style={styles.img}/>
 

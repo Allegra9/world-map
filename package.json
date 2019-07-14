@@ -5,7 +5,9 @@
   "homepage": "https://allegra9.github.io/world-map",
   "dependencies": {
     "@babel/helpers": "^7.5.4",
-    "apollo-boost": "^0.1.28",
+    "@emotion/core": "^10.0.14",
+    "@emotion/styled": "^10.0.14",
+    "apollo-boost": "^0.4.3",
     "country-list": "^2.1.1",
     "d3": "^5.9.7",
     "gh-pages": "^2.0.1",
@@ -15,9 +17,9 @@
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-easy-chart": "^1.0.0",
-    "react-jvectormap": "0.0.6",
-    "react-scripts": "^2.1.8",
-    "react-select": "^2.4.4",
+    "react-jvectormap": "0.0.12",
+    "react-scripts": "^3.0.1",
+    "react-select": "^3.0.4",
     "save": "^2.4.0",
     "world-countries": "^2.1.0"
   },

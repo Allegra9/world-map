@@ -5,8 +5,10 @@ import "../App.css";
 class PopAgeTable extends Component {
   state = {
     country: this.props.country,
-    data: [],
-    data2050: []
+    data2018: [],
+    data2050: [],
+    peopleOver100in2018: 0,
+    peopleOver100in2050: 0
   };
 
   getData = (year, array) => {
@@ -15,7 +17,7 @@ class PopAgeTable extends Component {
     let group2 = [];
     let group3 = [];
     let group4 = [];
-    let hundred;
+    let hundred = [];
 
     let data = {};
 
@@ -29,11 +31,11 @@ class PopAgeTable extends Component {
       if (entry.age >= 25 && entry.age < 65) {
         group3.push(entry.total);
       }
-      if (entry.age > 65) {
+      if (entry.age >= 65) {
         group4.push(entry.total);
       }
-      if (entry.age === 100) {
-        hundred = entry.total;
+      if (entry.age >= 100) {
+        hundred.push(entry.total);
       }
     });
 
@@ -43,7 +45,7 @@ class PopAgeTable extends Component {
     console.log(group2.reduce(reducer)); // 10 entries
     console.log(group3.reduce(reducer)); // 40 entries
     console.log(group4.reduce(reducer)); // 35 entries
-    console.log(hundred); // number
+    console.log(hundred.reduce(reducer)); //
 
     data = [
       { key: "0-14", value: group1.reduce(reducer), color: "pink" },
@@ -53,17 +55,24 @@ class PopAgeTable extends Component {
     ];
     //console.log(data)
 
+    const numberWithCommas = num =>
+      num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    const peopleOver100 = numberWithCommas(hundred.reduce(reducer));
+
     if (year === 2018) {
       this.setState(
         {
-          data: data
+          data2018: data,
+          peopleOver100in2018: peopleOver100
         },
         () => console.log(this.state.data)
       );
     } else {
       this.setState(
         {
-          data2050: data
+          data2050: data,
+          peopleOver100in2050: peopleOver100
         },
         () => console.log(this.state.data2050)
       );
@@ -79,14 +88,15 @@ class PopAgeTable extends Component {
   };
 
   getSelectedCountriesData = country => {
-    console.log("getSelectedCountriesData:", country);
+    //console.log("getSelectedCountriesData:", country);
     this.fetchAgeData(2018, country);
     this.fetchAgeData(2050, country);
   };
 
   componentDidMount() {
-    console.log("Country I'm fetching for: ", this.props.country);
-    this.getSelectedCountriesData(this.props.country);
+    const { country } = this.props;
+    console.log("Country I'm fetching for: ", country);
+    this.getSelectedCountriesData(country);
   }
 
   componentDidUpdate(prevProps) {
@@ -99,7 +109,6 @@ class PopAgeTable extends Component {
 
   render() {
     const styles = {
-      // style={styles.container}
       table: {
         border: "1px #000 solid",
         borderRadius: "10px",
@@ -122,27 +131,30 @@ class PopAgeTable extends Component {
       }
     };
 
+    const {
+      data2018,
+      data2050,
+      peopleOver100in2018,
+      peopleOver100in2050
+    } = this.state;
+    const { country } = this.props;
     return (
       <div style={styles.table}>
-        <h2 style={styles.h2}>{this.props.country} Age Dependency charts</h2>
+        <h2 style={styles.h2}>Age Dependency charts for {country}:</h2>
         <div style={styles.pie} class="pie">
-          <h4>2018 (estimated):</h4>
-          <PieChart
-            labels
-            size={300}
-            innerHoleSize={100}
-            data={this.state.data}
-          />
+          <h4>2018:</h4>
+          <PieChart labels size={300} innerHoleSize={100} data={data2018} />
+          <h4 style={styles.h2}>
+            People 100+ years old: {peopleOver100in2018}
+          </h4>
         </div>
 
         <div style={styles.pie} class="pie">
           <h4>2050 (projected):</h4>
-          <PieChart
-            labels
-            size={301}
-            innerHoleSize={100}
-            data={this.state.data2050}
-          />
+          <PieChart labels size={301} innerHoleSize={100} data={data2050} />
+          <h4 style={styles.h2}>
+            People 100+ years old: {peopleOver100in2050}
+          </h4>
         </div>
       </div>
     );

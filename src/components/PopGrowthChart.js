@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { LineChart } from "react-easy-chart";
-// npm i react-easy-charts --save
 import Select from "react-select";
+import Spinner from "./spinner";
 
 let totalPopChartData = [];
 let totalMalesChartData = [];
@@ -260,14 +260,7 @@ class PopGrowthChart extends Component {
             </div>
           </div> //select
         ) : (
-          <div className="spinner-wrapper">
-            <div className="spinner">
-              <span className="fragment" />
-              <span className="fragment" />
-              <span className="fragment" />
-              loading
-            </div>
-          </div>
+          <Spinner />
         )}
       </div>
     );

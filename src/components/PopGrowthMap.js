@@ -1,14 +1,8 @@
 import React from "react";
-// react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap"; // npm i react-jvectormap
+import { VectorMap } from "react-jvectormap";
 import PopAgeTable from "./PopAgeTable";
 
 const PopGrowthMap = ({ mapData, countryClick, countryClicked, ...props }) => {
-  const handleClick = (e, countryCode) => {
-    console.log(countryCode);
-    countryClick(countryCode);
-  };
-
   const styles = {
     noData: {
       textAlign: "center"
@@ -25,7 +19,7 @@ const PopGrowthMap = ({ mapData, countryClick, countryClicked, ...props }) => {
           width: "100%",
           height: "520px"
         }}
-        onRegionClick={handleClick}
+        onRegionClick={(e, countryCode) => countryClick(countryCode)}
         containerClassName="map"
         regionStyle={{
           initial: {

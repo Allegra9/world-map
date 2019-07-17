@@ -1,24 +1,16 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
-// import { Query } from "react-apollo";
+
 import PopGrowthMap from "./PopGrowthMap";
 import PopGrowthStats from "./PopGrowthStats";
 import PopGrowthChart from "./PopGrowthChart";
+import Spinner from "./spinner";
 import "../App.css";
 
-const countries = require("country-list");
+// const countries = require("country-list");
+const { getCode, getName, getData } = require("country-list");
 
-const PopGrowthPerDay = gql`
-  {
-    popGrowthPerDay(country: $country)
-  }
-`;
-
-// console.log(countries.getName('IS'));  // Iceland
-// console.log(countries.getCode('Norway')); // IS
-//console.log(countries.getData())
-const countriesNCodes = countries.getData(); // countriesNCodes
-console.log(countriesNCodes); // [0].name   [0].code
+const countriesNCodes = getData();
+//console.log(countriesNCodes); // [0].name   [0].code
 
 class PopGrowthData extends Component {
   state = {
@@ -31,7 +23,7 @@ class PopGrowthData extends Component {
 
   countryClickOnMap = countryCode => {
     if (countryCode !== "XK") {
-      let country = countries.getName(countryCode);
+      let country = getName(countryCode);
       this.setState(
         {
           countryClickedOnMap: country
@@ -60,16 +52,17 @@ class PopGrowthData extends Component {
   //get all countries:
   getCountryNamesArray = () => {
     const countriesArray = [];
-    console.log(countriesNCodes);
+    //console.log(countriesNCodes);
     for (let country of countriesNCodes) {
       countriesArray.push(country.name);
     }
+    // console.log(countriesArray);
     return countriesArray;
   };
 
   //fetch for each country:
-  getCountryData = name => {
-    return this.fetchPopulationData(name);
+  getCountryData = country => {
+    return this.fetchPopulationData(country);
   };
 
   //get data for each country and set the state:
@@ -113,19 +106,19 @@ class PopGrowthData extends Component {
       Object.entries(entry).forEach(([key, val]) => {
         // country: population_data arr w 2 objs
         //console.log(key);    //168 or 169
-        //key = countries.getCode(key)
+        //key = getCode(key)
         //val = val['total_population'][1].population - val['total_population'][0].population
-        countryCodeGrowthData[countries.getCode(key)] =
+        countryCodeGrowthData[getCode(key)] =
           val["total_population"][1].population -
           val["total_population"][0].population +
-          1000; //so no negative values for the map
+          1000; //so no negative values for the map   // Japan is currently at -960
         //entry[key] = val
       })
     );
     return countryCodeGrowthData;
   };
 
-  //reformating the data for the state, to be passed as props:   countryName: data
+  //reformating the data for the state, to be passed as props:   {countryName: data}
   getCountryDataNamesObject = finalData => {
     //console.log(finalData)
     let countryCodeGrowthData = {};
@@ -182,18 +175,23 @@ class PopGrowthData extends Component {
         marginTop: "100px"
       }
     };
-
+    const {
+      countryDataCodes,
+      countryDataNames,
+      countryClickedOnMap,
+      selectedCountry
+    } = this.state;
     return (
       <div>
-        {Object.keys(this.state.countryDataCodes).length > 0 ? (
+        {Object.keys(countryDataCodes).length > 0 ? (
           <div>
             <PopGrowthMap
-              mapData={this.state.countryDataCodes}
+              mapData={countryDataCodes}
               countryClick={this.countryClickOnMap}
-              countryClicked={this.state.countryClickedOnMap}
+              countryClicked={countryClickedOnMap}
             />
 
-            {this.state.selectedCountry !== "" ? (
+            {selectedCountry !== "" ? (
               <div style={styles.div}>
                 <button
                   onClick={this.handleBtnClick}
@@ -203,29 +201,22 @@ class PopGrowthData extends Component {
                   Back to stats
                 </button>
                 <PopGrowthChart
-                  selectedCountry={this.state.selectedCountry}
-                  growthDaily={this.state.countryDataNames}
+                  selectedCountry={selectedCountry}
+                  growthDaily={countryDataNames}
                   selectCountry={this.selectCountry}
                 />
               </div>
             ) : (
               <div>
                 <PopGrowthStats
-                  growthDaily={this.state.countryDataNames}
+                  growthDaily={countryDataNames}
                   selectCountry={this.selectCountry}
                 />
               </div>
             )}
           </div>
         ) : (
-          <div className="spinner-wrapper">
-            <div className="spinner">
-              <span className="fragment" />
-              <span className="fragment" />
-              <span className="fragment" />
-              loading
-            </div>
-          </div>
+          <Spinner />
         )}
       </div>
     );

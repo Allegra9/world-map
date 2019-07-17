@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        {/* <PopGrowthData /> */}
+        <PopGrowthData />
         <Footer />
       </div>
     );

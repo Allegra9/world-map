@@ -140,7 +140,7 @@ class PopAgeTable extends Component {
     const { country } = this.props;
     return (
       <div style={styles.table}>
-        <h2 style={styles.h2}>Age Dependency charts for {country}:</h2>
+        <h2 style={styles.h2}>Age dependency data for {country}:</h2>
         <div style={styles.pie} class="pie">
           <h4>2018:</h4>
           <PieChart labels size={300} innerHoleSize={100} data={data2018} />

@@ -157,12 +157,13 @@ class PopGrowthChart extends Component {
   };
 
   handleChange = selectedOption => {
-    this.props.selectCountry(Object.values(selectedOption)[0]);
+    const country = Object.values(selectedOption)[0];
+    this.props.selectCountry(country);
     this.setState(
       {
         loading: true
       },
-      () => this.getSelectedCountriesChartData(Object.values(selectedOption)[0])
+      () => this.getSelectedCountriesChartData(country)
     );
     //console.log(Object.values(selectedOption)[0])
     // this.setState({
@@ -200,20 +201,27 @@ class PopGrowthChart extends Component {
         gridColumnStart: "1",
         gridColumnEnd: "3",
         width: "50%",
-        marginLeft: "auto",
-        marginRight: "auto"
+        margin: "20px auto",
+        marginTop: 0
       }
     };
-
     //  isMulti={true}
 
+    const { selectedCountry } = this.props;
+    const {
+      loading,
+      selectedOption,
+      totalPopChartData,
+      totalMalesChartData,
+      totalFemalesChartData
+    } = this.state;
     return (
       <div>
-        {this.props.selectedCountry && !this.state.loading ? (
+        {selectedCountry && !loading ? (
           <div style={styles.table}>
             <div style={styles.select}>
               <Select
-                value={this.state.selectedOption}
+                value={selectedOption}
                 onChange={this.handleChange}
                 options={this.getCountries()}
                 placeholder="Select a country..."
@@ -221,7 +229,9 @@ class PopGrowthChart extends Component {
               />
             </div>
 
-            <h2 style={styles.h2}>Charts for {this.props.selectedCountry}:</h2>
+            <h2 style={styles.h2}>
+              {selectedCountry} population growth 1960-now:
+            </h2>
 
             <div style={styles.chart} className="chart">
               <h4 style={styles.h4}>Total population (millions):</h4>
@@ -235,7 +245,7 @@ class PopGrowthChart extends Component {
                 lineColors={["red"]}
                 width={580}
                 height={350}
-                data={[this.state.totalPopChartData]}
+                data={[totalPopChartData]}
               />
             </div>
 
@@ -252,13 +262,10 @@ class PopGrowthChart extends Component {
                 lineColors={["blue", "red"]}
                 width={580}
                 height={350}
-                data={[
-                  this.state.totalMalesChartData,
-                  this.state.totalFemalesChartData
-                ]}
+                data={[totalMalesChartData, totalFemalesChartData]}
               />
             </div>
-          </div> //select
+          </div>
         ) : (
           <Spinner />
         )}

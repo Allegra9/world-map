@@ -75,30 +75,19 @@ class PopGrowthStats extends React.Component {
     return sortedObj;
   };
 
-  getWeekly = () => {
+  multiplyBy = num => {
     let obj = this.sortedProps();
     Object.entries(obj).forEach(([key, val]) => {
-      obj[key] = val * 7;
+      obj[key] = val * num;
     });
     return obj;
   };
 
-  getYearly = () => {
-    //let obj = {...this.props.growthDaily}  // copies the object, same as Object.assign
-    let obj = this.sortedProps();
-    Object.entries(obj).forEach(([key, val]) => {
-      obj[key] = val * 365;
-    });
-    return obj;
-  };
+  getWeekly = () => this.multiplyBy(7);
 
-  get10Years = () => {
-    let obj = this.sortedProps();
-    Object.entries(obj).forEach(([key, val]) => {
-      obj[key] = val * 3650;
-    });
-    return obj;
-  };
+  getYearly = () => this.multiplyBy(365);
+
+  get10Years = () => this.multiplyBy(3650);
 
   getAFlag = countryToFind => {
     if (countryToFind === "Congo") {

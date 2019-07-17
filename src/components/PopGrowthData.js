@@ -198,7 +198,7 @@ class PopGrowthData extends Component {
                   style={styles.btn}
                   className="btn"
                 >
-                  Back to stats
+                  Back to population growth table
                 </button>
                 <PopGrowthChart
                   selectedCountry={selectedCountry}

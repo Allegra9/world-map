@@ -4,6 +4,7 @@ import PopGrowthMap from "./PopGrowthMap";
 import PopGrowthStats from "./PopGrowthStats";
 import PopGrowthChart from "./PopGrowthChart";
 import Spinner from "./spinner";
+import List from "@material-ui/icons/KeyboardBackspace";
 import "../App.css";
 
 // const countries = require("country-list");
@@ -193,13 +194,14 @@ class PopGrowthData extends Component {
 
             {selectedCountry !== "" ? (
               <div style={styles.div}>
-                <button
-                  onClick={this.handleBtnClick}
-                  style={styles.btn}
-                  className="btn"
-                >
-                  Back to population growth table
-                </button>
+                <div className="btn">
+                  <div onClick={this.handleBtnClick}>
+                    <List />
+                  </div>
+                  <div style={{ paddingLeft: 5 }} onClick={this.handleBtnClick}>
+                    Back to population growth projection table
+                  </div>
+                </div>
                 <PopGrowthChart
                   selectedCountry={selectedCountry}
                   growthDaily={countryDataNames}

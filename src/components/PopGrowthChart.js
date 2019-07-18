@@ -174,7 +174,6 @@ class PopGrowthChart extends Component {
 
   render() {
     const styles = {
-      // style={styles.container}
       table: {
         border: "1px #000 solid",
         borderRadius: "10px",
@@ -183,7 +182,8 @@ class PopGrowthChart extends Component {
         marginRight: "5%",
         display: "grid",
         gridTemplateColumns: "auto auto",
-        paddingRight: "5%"
+        paddingRight: "5%",
+        fontFamily: "Open Sans, sans-serif"
       },
       chart: {
         display: "inline-block",

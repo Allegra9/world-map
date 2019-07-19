@@ -8,7 +8,8 @@ const PopGrowthMap = ({ mapData, countryClick, countryClicked, ...props }) => {
       textAlign: "center"
     }
   };
-
+  // console.log(mapData);
+  console.log(countryClicked);
   return (
     <div>
       <VectorMap
@@ -52,17 +53,17 @@ const PopGrowthMap = ({ mapData, countryClick, countryClicked, ...props }) => {
       {countryClicked.length > 0 ? (
         countryClicked !== "Greenland" &&
         countryClicked !== "Venezuela, Bolivarian Republic of" &&
-        countryClicked !== "Bolivia, Plurinational State of" &&
+        // countryClicked !== "Bolivia, Plurinational State of" &&
         countryClicked !== "Iran, Islamic Republic of" &&
         countryClicked !== "Egypt" &&
-        countryClicked !== "Tanzania, United Republic of" &&
+        // countryClicked !== "Tanzania, United Republic of" &&
         countryClicked !== "Yemen" &&
         countryClicked !== "Syrian Arab Republic" &&
         countryClicked !== "Congo, the Democratic Republic of the" &&
         countryClicked !== "Côte d'Ivoire" &&
         countryClicked !== "Korea, Republic of" &&
         countryClicked !== "Korea, Democratic People's Republic of" &&
-        countryClicked !== "Viet Nam" &&
+        // countryClicked !== "Viet Nam" &&
         countryClicked !== "Lao People's Democratic Republic" &&
         countryClicked !== "Moldova, Republic of" &&
         countryClicked !== "Macedonia, the Former Yugoslav Republic of" &&

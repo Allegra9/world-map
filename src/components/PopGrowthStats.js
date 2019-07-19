@@ -31,7 +31,7 @@ class PopGrowthStats extends React.Component {
   sortedCountries = () => {
     let obj = { ...this.props.growthDaily };
     let objValuesSortedArray = Object.values(obj).sort((a, b) => b - a);
-    console.log(objValuesSortedArray); // typeof: object,  but it's an array with number values !!!
+    //console.log(objValuesSortedArray); // typeof: object,  but it's an array with number values !!!
     //  obj is    [42559, 13967, 13621, 10710, ...]
     //for each of this value I need to get the key country
     let sortedCountriesArray = [];
@@ -41,13 +41,13 @@ class PopGrowthStats extends React.Component {
     // Kuwait, Botswana, Djibouti, Albania, Luxembourg, Maldives, Fiji, Guyana,
     // Georgia, French Polynesia, Guadeloupe, Samoa, Antigua and Barbuda,
     // Aruba, Martinique, Croatia     // 169 ans 147    22  wrong/duplicates
-    console.log(sortedCountriesArray.length); // 169
+    console.log(sortedCountriesArray.length); // 169   // now 171
     //console.log(sortedCountriesArray)  // array of arrays
 
     //let flattened = sortedCountriesArray.reduce((acc, val) => acc.concat(val), []) // 227
     let flattened = this.flattenArray(sortedCountriesArray);
 
-    console.log(this.getUniqArray(flattened));
+    // console.log(this.getUniqArray(flattened));
     return this.getUniqArray(flattened);
   };
 

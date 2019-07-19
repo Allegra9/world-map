@@ -12,6 +12,7 @@ const { getCode, getName, getData } = require("country-list");
 
 const countriesNCodes = getData();
 //console.log(countriesNCodes); // [0].name   [0].code
+console.log(getData());
 
 class PopGrowthData extends Component {
   state = {
@@ -22,22 +23,36 @@ class PopGrowthData extends Component {
   };
   //   {Canada: { total_population: [{...},{...}] } }
 
+  setStateCountryClickedOnMap = country => {
+    this.setState(
+      {
+        countryClickedOnMap: country
+      },
+      () => console.log(this.state.countryClickedOnMap)
+    );
+  };
+
   countryClickOnMap = countryCode => {
     if (countryCode !== "XK") {
-      let country = getName(countryCode);
-      this.setState(
-        {
-          countryClickedOnMap: country
-        },
-        () => console.log(this.state.countryClickedOnMap)
-      );
+      console.log("COUNTRY CODE:", countryCode);
+      if (countryCode === "TZ") {
+        let country = "Tanzania";
+        this.setStateCountryClickedOnMap(country);
+      }
+      if (countryCode === "VN") {
+        let country = "Vietnam";
+        this.setStateCountryClickedOnMap(country);
+      }
+      if (countryCode === "BO") {
+        let country = "Bolivia";
+        this.setStateCountryClickedOnMap(country);
+      } else {
+        let country = getName(countryCode);
+        this.setStateCountryClickedOnMap(country);
+      }
     } else {
-      this.setState(
-        {
-          countryClickedOnMap: "Kosovo"
-        },
-        () => console.log(this.state.countryClickedOnMap)
-      );
+      let country = "Kosovo";
+      this.setStateCountryClickedOnMap(country);
     }
   };
 
@@ -63,6 +78,15 @@ class PopGrowthData extends Component {
 
   //fetch for each country:
   getCountryData = country => {
+    if (country === "Tanzania, United Republic of") {
+      return this.fetchPopulationData("Tanzania");
+    }
+    if (country === "Viet Nam") {
+      return this.fetchPopulationData("Vietnam");
+    }
+    if (country === "Bolivia, Plurinational State of") {
+      return this.fetchPopulationData("Bolivia");
+    }
     return this.fetchPopulationData(country);
   };
 
@@ -109,6 +133,15 @@ class PopGrowthData extends Component {
         //console.log(key);    //168 or 169
         //key = getCode(key)
         //val = val['total_population'][1].population - val['total_population'][0].population
+        if (key === "Tanzania") {
+          key = "Tanzania, United Republic of";
+        }
+        if (key === "Vietnam") {
+          key = "Viet Nam";
+        }
+        if (key === "Bolivia") {
+          key = "Bolivia, Plurinational State of";
+        }
         countryCodeGrowthData[getCode(key)] =
           val["total_population"][1].population -
           val["total_population"][0].population +
@@ -146,6 +179,7 @@ class PopGrowthData extends Component {
           // res.status code
           return res.json();
         } else {
+          console.log(country);
           return "no-country-data";
         }
       })
@@ -182,6 +216,8 @@ class PopGrowthData extends Component {
       countryClickedOnMap,
       selectedCountry
     } = this.state;
+    // console.log(countryDataCodes);
+    // console.log(countryDataNames);
     return (
       <div>
         {Object.keys(countryDataCodes).length > 0 ? (

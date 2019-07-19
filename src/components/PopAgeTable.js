@@ -66,7 +66,7 @@ class PopAgeTable extends Component {
           data2018: data,
           peopleOver100in2018: peopleOver100
         },
-        () => console.log(this.state.data)
+        () => console.log(this.state.data2018)
       );
     } else {
       this.setState(
@@ -94,15 +94,51 @@ class PopAgeTable extends Component {
   };
 
   componentDidMount() {
-    const { country } = this.props;
+    let country;
+    if (country === "Tanzania, United Republic of") {
+      country = "Tanzania";
+    } else if (country === "Viet Nam") {
+      country = "Vietnam";
+    } else if (country === "Bolivia, Plurinational State of") {
+      country = "Bolivia";
+    } else {
+      country = this.props.country;
+    }
     console.log("Country I'm fetching for: ", country);
-    this.getSelectedCountriesData(country);
+    // this.getSelectedCountriesData(country);
+    this.setState(
+      {
+        country
+      },
+      this.getSelectedCountriesData(country)
+    );
   }
 
   componentDidUpdate(prevProps) {
     // compares before updating
     if (prevProps.country !== this.props.country) {
-      console.log("Country I'm fetching for: ", this.props.country);
+      if (
+        prevProps.country === "Tanzania" &&
+        this.props.country === "Tanzania, United Republic of"
+      ) {
+        return;
+      }
+      if (
+        prevProps.country === "Vietnam" &&
+        this.props.country === "Viet Nam"
+      ) {
+        return;
+      }
+      if (
+        prevProps.country === "Bolivia" &&
+        this.props.country === "Bolivia, Plurinational State of"
+      ) {
+        return;
+      }
+      console.log(
+        "Country I'm fetching for in DID UPDATE is... ",
+        this.props.country
+      );
       this.getSelectedCountriesData(this.props.country);
     }
   }
@@ -137,7 +173,8 @@ class PopAgeTable extends Component {
       peopleOver100in2018,
       peopleOver100in2050
     } = this.state;
-    const { country } = this.props;
+    const { country } = this.state;
+    console.log("PROPS IN POP AGE:", country);
     return (
       <div style={styles.table}>
         <h2 style={styles.h2}>Age dependency data for {country}:</h2>

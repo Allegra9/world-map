@@ -134,20 +134,23 @@ class PopGrowthStats extends React.Component {
   };
 
   render() {
-    const countries = Object.values(this.state.countries);
-    const daily = Object.values(this.state.daily);
-    const weekly = Object.values(this.state.weekly);
-    const yearly = Object.values(this.state.yearly);
-    const in10yrs = Object.values(this.state.in10yrs);
+    const {
+      countries,
+      daily,
+      weekly,
+      yearly,
+      in10yrs,
+      reducedDaily
+    } = this.state;
 
-    //console.log(this.props.growthDaily)
-    //console.log("Countries:", this.state.countries)
-    // console.log(this.state.daily)
-    // console.log(this.state.weekly)
-    // console.log(this.state.yearly)
-    // console.log(this.state.in10yrs)
+    const countriesArr = Object.values(countries);
+    const dailyArr = Object.values(daily);
+    const weeklyArr = Object.values(weekly);
+    const yearlyArr = Object.values(yearly);
+    const in10yrsArr = Object.values(in10yrs);
 
-    //console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650
+    //console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650   // summer 2018
+    //summer 2019 daily rate is 188,975 !!! so it is reducing !!!
 
     const styles = {
       // style={styles.container}
@@ -216,22 +219,22 @@ class PopGrowthStats extends React.Component {
         color: "red"
       }
     };
+    const numberWithCommas = num =>
+      num !== null
+        ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        : null;
+    const dailyNum = numberWithCommas(reducedDaily);
+    const weeklyNum = numberWithCommas(reducedDaily * 7);
+    const yearlyNum = numberWithCommas(reducedDaily * 365);
 
     return (
       <div>
         <div style={styles.topDiv}>
           <p className="subtitle">
             Current world's population growth is
-            <span style={styles.span}>{this.state.reducedDaily}</span> people
-            per day,
-            <span style={styles.span}>
-              {Math.floor(this.state.reducedDaily * 7)}
-            </span>{" "}
-            per week,
-            <span style={styles.span}>
-              {Math.floor(this.state.reducedDaily * 360)}
-            </span>{" "}
-            per year.
+            <span style={styles.span}>{dailyNum}</span> people per day,
+            <span style={styles.span}>{weeklyNum}</span> per week,
+            <span style={styles.span}>{yearlyNum}</span> per year.
           </p>
         </div>
 
@@ -241,7 +244,7 @@ class PopGrowthStats extends React.Component {
               <li>
                 <h3 className="subtitle">Country</h3>
               </li>
-              {countries.map(country => (
+              {countriesArr.map(country => (
                 <li
                   style={styles.liCountry}
                   id={country}
@@ -259,7 +262,7 @@ class PopGrowthStats extends React.Component {
               <li>
                 <h3 className="subtitle">Daily</h3>
               </li>
-              {daily.map(daily => (
+              {dailyArr.map(daily => (
                 <li style={styles.li}>{daily.toLocaleString()}</li>
               ))}
             </ul>
@@ -270,7 +273,7 @@ class PopGrowthStats extends React.Component {
               <li>
                 <h3 className="subtitle">Weekly</h3>
               </li>
-              {weekly.map(weekly => (
+              {weeklyArr.map(weekly => (
                 <li style={styles.li}>{weekly.toLocaleString()}</li>
               ))}
             </ul>
@@ -281,7 +284,7 @@ class PopGrowthStats extends React.Component {
               <li>
                 <h3 className="subtitle">Yearly</h3>
               </li>
-              {yearly.map(yearly => (
+              {yearlyArr.map(yearly => (
                 <li style={styles.li}>{yearly.toLocaleString()}</li>
               ))}
             </ul>
@@ -292,7 +295,7 @@ class PopGrowthStats extends React.Component {
               <li>
                 <h3 className="subtitle">10 years</h3>
               </li>
-              {in10yrs.map(tenYrs => (
+              {in10yrsArr.map(tenYrs => (
                 <li style={styles.li}>{tenYrs.toLocaleString()}</li>
               ))}
             </ul>

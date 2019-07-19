@@ -13,7 +13,7 @@ const footer = () => (
 export default footer;
 
 const skinColor = "#d6d0b1";
-const fontFamily = "Cinzel, serif";
+const fontFamily = "Open Sans, sans-serif";
 const positionCenter =
   "display: flex; align-items: center; justify-content: center;";
 

@@ -7,8 +7,7 @@ class PopGrowthStats extends React.Component {
     daily: [],
     weekly: [],
     yearly: [],
-    in10yrs: [],
-    reducedDaily: null
+    in10yrs: []
   };
 
   getState = () => {
@@ -17,16 +16,15 @@ class PopGrowthStats extends React.Component {
       daily: this.sortedProps(),
       weekly: this.getWeekly(),
       yearly: this.getYearly(),
-      in10yrs: this.get10Years(),
-      reducedDaily: this.reducedDaily()
+      in10yrs: this.get10Years()
     });
   };
 
-  reducedDaily = () => {
-    let daily = this.sortedProps();
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    return daily.reduce(reducer);
-  };
+  // reducedDaily = () => {
+  //   let daily = this.sortedProps();
+  //   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  //   return daily.reduce(reducer);
+  // };
 
   sortedCountries = () => {
     let obj = { ...this.props.growthDaily };
@@ -41,7 +39,7 @@ class PopGrowthStats extends React.Component {
     // Kuwait, Botswana, Djibouti, Albania, Luxembourg, Maldives, Fiji, Guyana,
     // Georgia, French Polynesia, Guadeloupe, Samoa, Antigua and Barbuda,
     // Aruba, Martinique, Croatia     // 169 ans 147    22  wrong/duplicates
-    console.log(sortedCountriesArray.length); // 169   // now 171
+    console.log(sortedCountriesArray.length); // 169   // now 172
     //console.log(sortedCountriesArray)  // array of arrays
 
     //let flattened = sortedCountriesArray.reduce((acc, val) => acc.concat(val), []) // 227
@@ -115,6 +113,8 @@ class PopGrowthStats extends React.Component {
         country => country.name.common === "Russia"
       );
       return countriesNames.flag;
+    } else if (countryToFind === "World") {
+      return "❤️";
     } else {
       let countriesNames = worldCountries.find(
         country => country.name.common === countryToFind
@@ -134,24 +134,6 @@ class PopGrowthStats extends React.Component {
   };
 
   render() {
-    const {
-      countries,
-      daily,
-      weekly,
-      yearly,
-      in10yrs,
-      reducedDaily
-    } = this.state;
-
-    const countriesArr = Object.values(countries);
-    const dailyArr = Object.values(daily);
-    const weeklyArr = Object.values(weekly);
-    const yearlyArr = Object.values(yearly);
-    const in10yrsArr = Object.values(in10yrs);
-
-    //console.log(this.state.reducedDaily)   // 192011     * 7, * 365, * 3650   // summer 2018
-    //summer 2019 daily rate is 188,975 !!! so it is reducing !!!
-
     const styles = {
       // style={styles.container}
       gridContainer: {
@@ -219,13 +201,22 @@ class PopGrowthStats extends React.Component {
         color: "red"
       }
     };
+
+    const { countries, daily, weekly, yearly, in10yrs } = this.state;
+
+    const countriesArr = Object.values(countries);
+    const dailyArr = Object.values(daily);
+    const weeklyArr = Object.values(weekly);
+    const yearlyArr = Object.values(yearly);
+    const in10yrsArr = Object.values(in10yrs);
+
     const numberWithCommas = num =>
-      num !== null
+      num !== null && num !== undefined
         ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         : null;
-    const dailyNum = numberWithCommas(reducedDaily);
-    const weeklyNum = numberWithCommas(reducedDaily * 7);
-    const yearlyNum = numberWithCommas(reducedDaily * 365);
+    const dailyNum = numberWithCommas(dailyArr[0]);
+    const weeklyNum = numberWithCommas(dailyArr[0] * 7);
+    const yearlyNum = numberWithCommas(dailyArr[0] * 365);
 
     return (
       <div>
@@ -248,6 +239,7 @@ class PopGrowthStats extends React.Component {
                 <li
                   style={styles.liCountry}
                   id={country}
+                  key={country}
                   onClick={this.handleClick}
                   className="subtitle-link"
                 >
@@ -263,7 +255,9 @@ class PopGrowthStats extends React.Component {
                 <h3 className="subtitle">Daily</h3>
               </li>
               {dailyArr.map(daily => (
-                <li style={styles.li}>{daily.toLocaleString()}</li>
+                <li style={styles.li} key={daily + Math.random(199)}>
+                  {daily.toLocaleString()}
+                </li>
               ))}
             </ul>
           </span>
@@ -274,7 +268,9 @@ class PopGrowthStats extends React.Component {
                 <h3 className="subtitle">Weekly</h3>
               </li>
               {weeklyArr.map(weekly => (
-                <li style={styles.li}>{weekly.toLocaleString()}</li>
+                <li style={styles.li} key={weekly + Math.random(199)}>
+                  {weekly.toLocaleString()}
+                </li>
               ))}
             </ul>
           </span>
@@ -285,7 +281,9 @@ class PopGrowthStats extends React.Component {
                 <h3 className="subtitle">Yearly</h3>
               </li>
               {yearlyArr.map(yearly => (
-                <li style={styles.li}>{yearly.toLocaleString()}</li>
+                <li style={styles.li} key={yearly + Math.random(199)}>
+                  {yearly.toLocaleString()}
+                </li>
               ))}
             </ul>
           </span>
@@ -296,7 +294,9 @@ class PopGrowthStats extends React.Component {
                 <h3 className="subtitle">10 years</h3>
               </li>
               {in10yrsArr.map(tenYrs => (
-                <li style={styles.li}>{tenYrs.toLocaleString()}</li>
+                <li style={styles.li} key={tenYrs + Math.random(199)}>
+                  {tenYrs.toLocaleString()}
+                </li>
               ))}
             </ul>
           </span>

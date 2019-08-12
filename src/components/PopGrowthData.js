@@ -72,6 +72,8 @@ class PopGrowthData extends Component {
     for (let country of countriesNCodes) {
       countriesArray.push(country.name);
     }
+    countriesArray.push("World"); // adding "World" to the array
+    // console.log("countries array length: ", countriesArray.length);  /// 250 countries
     // console.log(countriesArray);
     return countriesArray;
   };
@@ -102,7 +104,7 @@ class PopGrowthData extends Component {
           if (length === 0) {
             //only set state when fetched for all the countries
             if (finalData) {
-              console.log(finalData);
+              // console.log(finalData);
               finalData = finalData.filter(obj =>
                 obj !== undefined || obj !== null
                   ? Object.keys(obj).length !== 0
@@ -142,10 +144,14 @@ class PopGrowthData extends Component {
         if (key === "Bolivia") {
           key = "Bolivia, Plurinational State of";
         }
+        if (key === "World") {
+          return;
+        }
+        // console.log(key);
         countryCodeGrowthData[getCode(key)] =
           val["total_population"][1].population -
           val["total_population"][0].population +
-          1000; //so no negative values for the map   // Japan is currently at -960
+          1000; //so no negative values for the map   // Japan is currently at -965
         //entry[key] = val
       })
     );

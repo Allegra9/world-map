@@ -173,12 +173,12 @@ class PopAgeTable extends Component {
       peopleOver100in2018,
       peopleOver100in2050
     } = this.state;
-    const { country } = this.state;
+    const { country } = this.props;
     console.log("PROPS IN POP AGE:", country);
     return (
       <div style={styles.table}>
         <h2 style={styles.h2}>Age dependency data for {country}:</h2>
-        <div style={styles.pie} class="pie">
+        <div style={styles.pie} className="pie">
           <h4>2018:</h4>
           <PieChart labels size={300} innerHoleSize={100} data={data2018} />
           <h4 style={styles.h2}>
@@ -186,7 +186,7 @@ class PopAgeTable extends Component {
           </h4>
         </div>
 
-        <div style={styles.pie} class="pie">
+        <div style={styles.pie} className="pie">
           <h4>2050 (projected):</h4>
           <PieChart labels size={301} innerHoleSize={100} data={data2050} />
           <h4 style={styles.h2}>
